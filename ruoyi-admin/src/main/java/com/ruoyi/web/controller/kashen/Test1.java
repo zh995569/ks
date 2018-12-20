@@ -1,8 +1,6 @@
 package com.ruoyi.web.controller.kashen;
 
 
-import org.apache.commons.codec.binary.Base64;
-
 /**
  * @ClassName Test1
  * @Author Chansey
@@ -21,10 +19,12 @@ public class Test1 {
         byte[] b = str.getBytes();
         String s = new String(b);
         System.out.println(s);
+        Test1 t = new Test1();
+        t.aaa();
     }
 
     public void aaa(){
-        System.out.println();
+        System.out.println(1111111);
     }
 }
 
