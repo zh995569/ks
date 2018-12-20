@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								车主身份证号码：<input type="text" name="CAR_CZSFZH"/>
+							</li>
+
+							<li>
+								车主姓名：<input type="text" name="CAR_CZXM"/>
+							</li>
+
+							<li>
+								车牌号码：<input type="text" name="CAR_CPHM"/>
+							</li>
+
+							<li>
+								大架子编号：<input type="text" name="CAR_DJZH"/>
+							</li>
+
+							<li>
+								车主　联系电话：<input type="text" name="CAR_CZLXDH"/>
+							</li>
+
+							<li>
+								车辆状态：<!--<input type="text" name="CAR_CLZT"/>-->
+								<select name="CAR_CLZT" class="m-b" lay-verify="required">
+									<option value=""></option>
+									<option value="0">在场</option>
+									<option value="1">外出作业</option>
+								</select>
+							</li>
+
+							<li class="select-time">
+								<label>登记时间： </label>
+								<input type="text" class="time-input" id="CAR_DJSJ" placeholder="" name="CAR_DJSJ"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="kashen:car_register:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="kashen:car_register:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="kashen:car_register:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="kashen:car_register:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('kashen:car_register:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('kashen:car_register:remove')}]];
+        var prefix = ctx + "kashen/car_register";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "车辆登记",
+				search: false,
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				/*{
+					field : 'guid',
+					title : '车辆主键',
+                    sortable: false
+				},*/
+				{
+					field : 'car_DJZH',
+					title : '大架子编号'
+				},
+				{
+					field : 'car_CPHM',
+					title : '车牌号码'
+				},
+				{
+					field : 'car_JDCBH',
+					title : '机动车编号'
+				},
+				{
+					field : 'car_CLXH',
+					title : '车辆型号'
+				},
+				{
+					field : 'car_CZXM',
+					title : '车主姓名'
+				},
+				{
+					field : 'car_CLZT',
+					title : '车辆状态',
+                    formatter: function(value, row, index) {
+					    if (value=="0"){
+					        return "在场";
+						}
+						if (value=="1"){
+					        return "外出作业";
+						}
+                    }
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.guid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.guid + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kashen.mapper.CAR_REGISTERMapper">
+    
+    <resultMap type="CAR_REGISTER" id="Car_registerResult">
+        <result property="GUID"    column="GUID"    />
+        <result property="CAR_DJZH"    column="CAR_DJZH"    />
+        <result property="CAR_CPHM"    column="CAR_CPHM"    />
+        <result property="CAR_JDCBH"    column="CAR_JDCBH"    />
+        <result property="CAR_CLXH"    column="CAR_CLXH"    />
+        <result property="CAR_CLPP"    column="CAR_CLPP"    />
+        <result property="CAR_CLYS"    column="CAR_CLYS"    />
+        <result property="CAR_CZXM"    column="CAR_CZXM"    />
+        <result property="CAR_CLZT"    column="CAR_CLZT"    />
+        <result property="CAR_CZXB"    column="CAR_CZXB"    />
+        <result property="CAR_CZMZ"    column="CAR_CZMZ"    />
+        <result property="CAR_CZSFZH"    column="CAR_CZSFZH"    />
+        <result property="CAR_CZDZ"    column="CAR_CZDZ"    />
+        <result property="CAR_CZJG"    column="CAR_CZJG"    />
+        <result property="CAR_CZLXDH"    column="CAR_CZLXDH"    />
+        <result property="CAR_DJSJ"    column="CAR_DJSJ"    />
+        <result property="CAR_SSJWZ"    column="CAR_SSJWZ"    />
+        <result property="CAR_SSPCS"    column="CAR_SSPCS"    />
+        <result property="CAR_SSQY"    column="CAR_SSQY"    />
+        <result property="CAR_SFSC"    column="CAR_SFSC"    />
+    </resultMap>
+	
+	<sql id="selectCar_register">
+        select GUID, CAR_DJZH, CAR_CPHM, CAR_JDCBH, CAR_CLXH, CAR_CLPP, CAR_CLYS,
+          CAR_CZXM,CAR_CLZT,CAR_CZXB,CAR_CZMZ,CAR_CZSFZH,CAR_CZDZ,CAR_CZJG,CAR_CZLXDH,
+          CAR_DJSJ,CAR_SSJWZ,CAR_SSPCS,CAR_SSQY,CAR_SFSC from CAR_REGISTER
+    </sql>
+	
+    <select id="selectList" parameterType="CAR_REGISTER" resultMap="Car_registerResult">
+        <include refid="selectCar_register"/>
+        <where>  
+            <if test="GUID != null  and GUID != '' "> and GUID = #{GUID}</if>
+            <if test="CAR_DJZH != null  and CAR_DJZH != '' "> and CAR_DJZH = #{CAR_DJZH}</if>
+            <if test="CAR_CPHM != null  and CAR_CPHM != '' "> and CAR_CPHM = #{CAR_CPHM}</if>
+            <if test="CAR_JDCBH != null  and CAR_JDCBH != '' "> and CAR_JDCBH = #{CAR_JDCBH}</if>
+            <if test="CAR_CLXH != null  and CAR_CLXH != '' "> and CAR_CLXH = #{CAR_CLXH}</if>
+            <if test="CAR_CLPP != null  and CAR_CLPP != '' "> and CAR_CLPP = #{CAR_CLPP}</if>
+            <if test="CAR_CZXM != null  and CAR_CZXM != '' "> and CAR_CZXM = #{CAR_CZXM}</if>
+            <if test="CAR_CLZT != null  and CAR_CLZT != '' "> and CAR_CLZT = #{CAR_CLZT}</if>
+            <if test="CAR_CZXB != null  and CAR_CZXB != '' "> and CAR_CZXB = #{CAR_CZXB}</if>
+            <if test="CAR_CZMZ != null  and CAR_CZMZ != '' "> and CAR_CZMZ = #{CAR_CZMZ}</if>
+            <if test="CAR_CZSFZH != null  and CAR_CZSFZH != '' "> and CAR_CZSFZH = #{CAR_CZSFZH}</if>
+            <if test="CAR_CZDZ != null  and CAR_CZDZ != '' "> and CAR_CZDZ = #{CAR_CZDZ}</if>
+            <if test="CAR_CZJG != null  and CAR_CZJG != '' "> and CAR_CZJG = #{CAR_CZJG}</if>
+            <if test="CAR_CZLXDH != null  and CAR_CZLXDH != '' "> and CAR_CZLXDH = #{CAR_CZLXDH}</if>
+            <if test="CAR_DJSJ != null  and CAR_DJSJ != '' "> and CAR_DJSJ = #{CAR_DJSJ}</if>
+            <if test="CAR_SSJWZ != null  and CAR_SSJWZ != '' "> and CAR_SSJWZ = #{CAR_SSJWZ}</if>
+            <if test="CAR_SSPCS != null  and CAR_SSPCS != '' "> and CAR_SSPCS = #{CAR_SSPCS}</if>
+            <if test="CAR_SSQY != null  and CAR_SSQY != '' "> and CAR_SSQY = #{CAR_SSQY}</if>
+            <if test="CAR_SFSC != null"> and CAR_SFSC = #{CAR_SFSC}</if>
+         </where>
+    </select>
+    
+    <select id="selectById" parameterType="String" resultMap="Car_registerResult">
+        <include refid="selectCar_register"/>
+        where GUID = #{GUID}
+    </select>
+        
+    <insert id="insert" parameterType="CAR_REGISTER">
+        insert into CAR_REGISTER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">GUID,</if>
+			<if test="CAR_DJZH != null  and CAR_DJZH != ''  ">CAR_DJZH,</if>
+			<if test="CAR_CPHM != null  and CAR_CPHM != ''  ">CAR_CPHM,</if>
+			<if test="CAR_JDCBH != null  and CAR_JDCBH != ''  ">CAR_JDCBH,</if>
+			<if test="CAR_CLXH != null  and CAR_CLXH != ''  ">CAR_CLXH,</if>
+            <if test="CAR_CLPP != null  and CAR_CLPP != ''  ">CAR_CLPP,</if>
+            <if test="CAR_CLYS != null  and CAR_CLYS != ''  ">CAR_CLYS,</if>
+            <if test="CAR_CZXM != null  and CAR_CZXM != ''  ">CAR_CZXM,</if>
+            <if test="CAR_CLZT != null  and CAR_CLZT != ''  ">CAR_CLZT,</if>
+            <if test="CAR_CZXB != null  and CAR_CZXB != ''  ">CAR_CZXB,</if>
+            <if test="CAR_CZMZ != null  and CAR_CZMZ != ''  ">CAR_CZMZ,</if>
+            <if test="CAR_CZSFZH != null  and CAR_CZSFZH != ''  ">CAR_CZSFZH,</if>
+            <if test="CAR_CZDZ != null  and CAR_CZDZ != ''  ">CAR_CZDZ,</if>
+            <if test="CAR_CZJG != null  and CAR_CZJG != ''  ">CAR_CZJG,</if>
+            <if test="CAR_CZLXDH != null  and CAR_CZLXDH != ''  ">CAR_CZLXDH,</if>
+            <if test="CAR_DJSJ != null">CAR_DJSJ,</if>
+            <if test="CAR_SSJWZ != null  and CAR_SSJWZ != ''  ">CAR_SSJWZ,</if>
+            <if test="CAR_SSPCS != null  and CAR_SSPCS != ''  ">CAR_SSPCS,</if>
+            <if test="CAR_SSQY != null  and CAR_SSQY != ''  ">CAR_SSQY,</if>
+            <if test="CAR_SFSC != null">CAR_SFSC,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">#{GUID},</if>
+			<if test="CAR_DJZH != null  and CAR_DJZH != ''  ">#{CAR_DJZH},</if>
+			<if test="CAR_CPHM != null  and CAR_CPHM != ''  ">#{CAR_CPHM},</if>
+			<if test="CAR_JDCBH != null  and CAR_JDCBH != ''  ">#{CAR_JDCBH},</if>
+			<if test="CAR_CLXH != null  and CAR_CLXH != ''  ">#{CAR_CLXH},</if>
+            <if test="CAR_CLPP != null  and CAR_CLPP != ''  ">#{CAR_CLPP},</if>
+            <if test="CAR_CLYS != null  and CAR_CLYS != ''  ">#{CAR_CLYS},</if>
+            <if test="CAR_CZXM != null  and CAR_CZXM != ''  ">#{CAR_CZXM},</if>
+            <if test="CAR_CLZT != null  and CAR_CLZT != ''  ">#{CAR_CLZT},</if>
+            <if test="CAR_CZXB != null  and CAR_CZXB != ''  ">#{CAR_CZXB},</if>
+            <if test="CAR_CZMZ != null  and CAR_CZMZ != ''  ">#{CAR_CZMZ},</if>
+            <if test="CAR_CZSFZH != null  and CAR_CZSFZH != ''  ">#{CAR_CZSFZH},</if>
+            <if test="CAR_CZDZ != null  and CAR_CZDZ != ''  ">#{CAR_CZDZ},</if>
+            <if test="CAR_CZJG != null  and CAR_CZJG != ''  ">#{CAR_CZJG},</if>
+            <if test="CAR_CZLXDH != null  and CAR_CZLXDH != ''  ">#{CAR_CZLXDH},</if>
+            <if test="CAR_DJSJ != null">#{CAR_DJSJ},</if>
+            <if test="CAR_SSJWZ != null  and CAR_SSJWZ != ''  ">#{CAR_SSJWZ},</if>
+            <if test="CAR_SSPCS != null  and CAR_SSPCS != ''  ">#{CAR_SSPCS},</if>
+            <if test="CAR_SSQY != null  and CAR_SSQY != ''  ">#{CAR_SSQY},</if>
+            <if test="CAR_SFSC != null">#{CAR_SFSC},</if>
+         </trim>
+    </insert>
+	 
+    <update id="update" parameterType="CAR_REGISTER">
+        update CAR_REGISTER
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="CAR_DJZH != null  and CAR_DJZH != ''  ">CAR_DJZH = #{CAR_DJZH},</if>
+            <if test="CAR_CPHM != null  and CAR_CPHM != ''  ">CAR_CPHM = #{CAR_CPHM},</if>
+            <if test="CAR_JDCBH != null  and CAR_JDCBH != ''  ">CAR_JDCBH = #{CAR_JDCBH},</if>
+            <if test="CAR_CLXH != null  and CAR_CLXH != ''  ">CAR_CLXH = #{CAR_CLXH},</if>
+            <if test="CAR_CLPP != null  and CAR_CLPP != ''  ">CAR_CLPP = #{CAR_CLPP},</if>
+            <if test="CAR_CLYS != null  and CAR_CLYS != ''  ">CAR_CLYS = #{CAR_CLYS},</if>
+            <if test="CAR_CZXM != null  and CAR_CZXM != ''  ">CAR_CZXM = #{CAR_CZXM},</if>
+            <if test="CAR_CLZT != null  and CAR_CLZT != ''  ">CAR_CLZT = #{CAR_CLZT},</if>
+            <if test="CAR_CZXB != null  and CAR_CZXB != ''  ">CAR_CZXB = #{CAR_CZXB},</if>
+            <if test="CAR_CZMZ != null  and CAR_CZMZ != ''  ">CAR_CZMZ = #{CAR_CZMZ},</if>
+            <if test="CAR_CZSFZH != null  and CAR_CZSFZH != ''  ">CAR_CZSFZH = #{CAR_CZSFZH},</if>
+            <if test="CAR_CZDZ != null  and CAR_CZDZ != ''  ">CAR_CZDZ = #{CAR_CZDZ},</if>
+            <if test="CAR_CZJG != null  and CAR_CZJG != ''  ">CAR_CZJG = #{CAR_CZJG},</if>
+            <if test="CAR_CZLXDH != null  and CAR_CZLXDH != ''  ">CAR_CZLXDH = #{CAR_CZLXDH},</if>
+            <if test="CAR_DJSJ != null">CAR_DJSJ = #{CAR_DJSJ},</if>
+            <if test="CAR_SSJWZ != null  and CAR_SSJWZ != ''  ">CAR_SSJWZ = #{CAR_SSJWZ},</if>
+            <if test="CAR_SSPCS != null  and CAR_SSPCS != ''  ">CAR_SSPCS = #{CAR_SSPCS},</if>
+            <if test="CAR_SSQY != null  and CAR_SSQY != ''  ">CAR_SSQY = #{CAR_SSQY},</if>
+            <if test="CAR_SFSC != null">CAR_SFSC = #{CAR_SFSC},</if>
+        </trim>
+        where GUID = #{GUID}
+    </update>
+
+	<delete id="deleteById" parameterType="String">
+        delete from CAR_REGISTER where GUID = #{GUID}
+    </delete>
+	
+    <delete id="deleteByIds" parameterType="String">
+        delete from CAR_REGISTER where GUID in
+        <foreach item="GUID" collection="array" open="(" separator="," close=")">
+            #{GUID}
+        </foreach>
+    </delete>
+    
+</mapper>

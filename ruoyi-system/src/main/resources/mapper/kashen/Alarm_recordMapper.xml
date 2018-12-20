@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kashen.mapper.ALARM_RECORDMapper">
+    
+    <resultMap type="ALARM_RECORD" id="alarm_recordResult">
+        <result property="GUID"    column="GUID"    />
+        <result property="DRVIER_GUID"    column="DRVIER_GUID"    />
+        <result property="CAR_GUID"    column="CAR_GUID"    />
+        <result property="ALARM_TIME"    column="ALARM_TIME"    />
+        <result property="ALARM_ZT"    column="ALARM_ZT"    />
+    </resultMap>
+	
+	<sql id="selectAlarm_record">
+        select GUID, DRVIER_GUID, CAR_GUID, ALARM_TIME, ALARM_ZT from ALARM_RECORD
+    </sql>
+	
+    <select id="selectList" parameterType="ALARM_RECORD" resultMap="alarm_recordResult">
+        <include refid="selectAlarm_record"/>
+        <where>  
+            <if test="GUID != null  and GUID != '' "> and GUID = #{GUID}</if>
+             <if test="DRVIER_GUID != null  and DRVIER_GUID != '' "> and DRVIER_GUID = #{DRVIER_GUID}</if>
+             <if test="CAR_GUID != null  and CAR_GUID != '' "> and CAR_GUID = #{CAR_GUID}</if>
+             <if test="ALARM_TIME != null "> and ALARM_TIME = #{ALARM_TIME}</if>
+             <if test="ALARM_ZT != null"> and ALARM_ZT = #{ALARM_ZT}</if>
+         </where>
+    </select>
+    
+    <select id="selectById" parameterType="String" resultMap="alarm_recordResult">
+        <include refid="selectAlarm_record"/>
+        where GUID = #{GUID}
+    </select>
+        
+    <insert id="insert" parameterType="ALARM_RECORD">
+        insert into ALARM_RECORD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">GUID,</if>
+			<if test="DRVIER_GUID != null  and DRVIER_GUID != ''  ">DRVIER_GUID,</if>
+			<if test="CAR_GUID != null  and CAR_GUID != ''  ">CAR_GUID,</if>
+			<if test="ALARM_TIME != null  ">ALARM_TIME,</if>
+			<if test="ALARM_ZT != null  ">ALARM_ZT,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">#{GUID},</if>
+			<if test="DRVIER_GUID != null  and DRVIER_GUID != ''  ">#{DRVIER_GUID},</if>
+			<if test="CAR_GUID != null  and CAR_GUID != ''  ">#{CAR_GUID},</if>
+			<if test="ALARM_TIME != null  ">#{ALARM_TIME},</if>
+			<if test="ALARM_ZT != null ">#{ALARM_ZT},</if>
+         </trim>
+    </insert>
+	 
+    <update id="update" parameterType="ALARM_RECORD">
+        update ALARM_RECORD
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="DRVIER_GUID != null  and DRVIER_GUID != ''  ">DRVIER_GUID = #{DRVIER_GUID},</if>
+            <if test="CAR_GUID != null  and CAR_GUID != ''  ">CAR_GUID = #{CAR_GUID},</if>
+            <if test="ALARM_TIME != null  ">ALARM_TIME = #{ALARM_TIME},</if>
+            <if test="ALARM_ZT != null ">ALARM_ZT = #{ALARM_ZT},</if>
+        </trim>
+        where GUID = #{GUID}
+    </update>
+
+	<delete id="deleteById" parameterType="String">
+        delete from ALARM_RECORD where GUID = #{GUID}
+    </delete>
+	
+    <delete id="deleteByIds" parameterType="String">
+        delete from ALARM_RECORD where GUID in
+        <foreach item="GUID" collection="array" open="(" separator="," close=")">
+            #{GUID}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-record-edit" th:object="${driver_register}">
+            <input id="GUID" name="GUID" th:field="*{GUID}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">驾驶员身份证：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_SFZH" name="DRIVER_SFZH" th:field="*{DRIVER_SFZH}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">姓名：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_XM" name="DRIVER_XM" th:field="*{DRIVER_XM}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">性别：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_XB" name="DRIVER_XB" th:field="*{DRIVER_XB}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">籍贯：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_JG" name="DRIVER_JG" th:field="*{DRIVER_JG}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">住址：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_ZZ" name="DRIVER_ZZ" th:field="*{DRIVER_ZZ}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">民族：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_MZ" name="DRIVER_MZ" th:field="*{DRIVER_MZ}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">驾驶证编号：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_JSZBH" name="DRIVER_JSZBH" th:field="*{DRIVER_JSZBH}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">app登录密码：</label>
+				<div class="col-sm-8">
+					<input id="APP_PWD" name="APP_PWD" th:field="*{APP_PWD}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">驾驶员现场照片 base64：</label>
+				<div class="col-sm-8">
+					<!--<input id="DRIVER_XCZ" name="DRIVER_XCZ" th:field="*{DRIVER_XCZ}" class="form-control" type="text">-->
+					<img id='img' name="DRIVER_XCZ" style="float: left;border: 1px solid red" th:src="@{${xcz}}">
+				</div>
+			</div>
+			<!--<div class="form-group">
+				<label class="col-sm-3 control-label">人脸模板：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_RLMB" name="DRIVER_RLMB" th:field="*{DRIVER_RLMB}" class="form-control" type="text">
+				</div>
+			</div>-->
+			<div class="form-group">
+				<label class="col-sm-3 control-label">人员审查状态：</label>
+				<div class="col-sm-8">
+					<!--<input id="DRIVER_SCZT" name="DRIVER_SCZT" th:field="*{DRIVER_SCZT}" class="form-control" type="text">-->
+					<select name="CAR_SFSC" class="form-control m-b" lay-verify="required">
+						<option value="" th:selected="*{DRIVER_SCZT==null}"></option>
+						<option value="0" th:selected="*{DRIVER_SCZT==0}">未审查</option>
+						<option value="1" th:selected="*{DRIVER_SCZT==1}">已审查</option>
+					</select>
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "kashen/driver_register"
+		$("#form-record-edit").validate({
+            rules:{
+                DRIVER_SFZH:{
+                    required:true,
+                    isIdentity:true,
+                },
+                DRIVER_XM:{
+                    required:true,
+                },
+                DRIVER_SCZT:{
+                    required:true,
+                }
+            }
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-record-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

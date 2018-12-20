@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-record-add">
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">大架子编号：</label>
+					<input id="CAR_DJZH" name="CAR_DJZH" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车牌号码：</label>
+					<input id="CAR_CPHM" name="CAR_CPHM" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">机动车编号：</label>
+					<input id="CAR_JDCBH" name="CAR_JDCBH" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车辆型号：</label>
+					<input id="CAR_CLXH" name="CAR_CLXH" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车辆品牌：</label>
+					<input id="CAR_CLPP" name="CAR_CLPP" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车辆颜色：</label>
+					<input id="CAR_CLYS" name="CAR_CLYS" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车主姓名：</label>
+					<input id="CAR_CZXM" name="CAR_CZXM" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车辆状态：</label>
+					<!--<input id="CAR_CLZT" name="CAR_CLZT" class="form-control" type="text">-->
+					<div class="layui-input-block">
+						<select name="CAR_CLZT" class="form-control m-b" lay-verify="required">
+							<option value=""></option>
+							<option value="0">在场</option>
+							<option value="1">外出作业</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车主性别：</label>
+					<input id="CAR_CZXB" name="CAR_CZXB" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车主民族：</label>
+					<input id="CAR_CZMZ" name="CAR_CZMZ" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车主身份证号码：</label>
+					<input id="CAR_CZSFZH" name="CAR_CZSFZH" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车主住址：</label>
+					<input id="CAR_CZDZ" name="CAR_CZDZ" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车主籍贯：</label>
+					<input id="CAR_CZJG" name="CAR_CZJG" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车主联系电话：</label>
+					<input id="CAR_CZLXDH" name="CAR_CZLXDH" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">登记时间：</label>
+					<input type="text" class="form-control time-input" id="CAR_DJSJ" placeholder="" name="CAR_DJSJ"/>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">所属警务站：</label>
+					<input id="CAR_SSJWZ" name="CAR_SSJWZ" class="form-control" type="text">
+				</div>
+			</div>
+
+
+			<!--<div class="form-group">
+				<label class="col-sm-3 control-label">登记时间：</label>
+				<div class="col-sm-8">
+					&lt;!&ndash;<input id="CAR_DJSJ" name="CAR_DJSJ" class="form-control" type="text">&ndash;&gt;
+					<input type="text" class="time-input" id="CAR_DJSJ" placeholder="" name="CAR_DJSJ"/>
+				</div>
+			</div>-->
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">所属派出所：</label>
+					<input id="CAR_SSPCS" name="CAR_SSPCS" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">所属区域：</label>
+					<input id="CAR_SSQY" name="CAR_SSQY" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">是否审查：</label>
+					<!--<input id="CAR_SFSC" name="CAR_SFSC" class="form-control" type="text">-->
+					<div class="layui-input-block">
+						<select name="CAR_SFSC" class="form-control m-b" lay-verify="required">
+							<option value=""></option>
+							<option value="0">未审查</option>
+							<option value="1">已审查</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "kashen/car_register"
+		$("#form-record-add").validate({
+            rules:{
+                CAR_DJZH:{
+                    required:true,
+                },
+                CAR_CPHM:{
+                    required:true,
+                },
+                CAR_CZXM:{
+                    required:true,
+                },
+                CAR_CLZT:{
+                    required:true,
+                },
+                CAR_CZSFZH:{
+                    required:true,
+                    isIdentity:true,
+                },
+                CAR_CZLXDH:{
+                    required:true,
+                    isPhone:true,
+                }
+            }
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-record-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

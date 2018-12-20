@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kashen.mapper.CAR_RECORDMapper">
+
+    <!-- 车辆外出审批登记 -->
+    <resultMap type="CAR_RECORD" id="Car_recordResult">
+        <id property="GUID"    column="GUID"    />
+        <result property="CAR_ID"    column="CAR_ID"    />
+        <result property="DRIVER_ID"    column="DRIVER_ID"    />
+        <result property="DRIVER_WCSY"    column="DRIVER_WCSY"    />
+        <result property="DRIVER_WCDD"    column="DRIVER_WCDD"    />
+        <result property="DRIVER_KSSJ"    column="DRIVER_KSSJ"    />
+        <result property="DRIVER_JSSJ"    column="DRIVER_JSSJ"    />
+        <result property="DRIVER_SPZT"    column="DRIVER_SPZT"    />
+        <association property="car_register"    column="CAR_ID" javaType="CAR_REGISTER" resultMap="car_registerResult" />
+        <association property="driver_register"    column="DRIVER_ID" javaType="DRIVER_REGISTER" resultMap="driver_registerResult" />
+    </resultMap>
+
+    <resultMap id="car_registerResult" type="CAR_REGISTER">
+        <id     property="GUID"   column="GUID"     />
+        <result property="CAR_CPHM" column="CAR_CPHM"   /><!-- 车牌号码 -->
+    </resultMap>
+    <resultMap id="driver_registerResult" type="DRIVER_REGISTER">
+        <id     property="GUID"   column="GUID"     />
+        <result property="DRIVER_XM" column="DRIVER_XM"   /><!-- 驾驶员姓名 -->
+    </resultMap>
+	
+	<sql id="selectCar_register">
+        /*select GUID, CAR_ID, DRIVER_ID, DRIVER_WCSY, DRIVER_WCDD, DRIVER_KSSJ, DRIVER_JSSJ, DRIVER_SPZT from CAR_RECORD*/
+        SELECT c1.*,C2.CAR_CPHM,d.DRIVER_XM FROM CAR_RECORD c1 LEFT JOIN CAR_REGISTER c2 ON C1.CAR_ID=C2.GUID
+		LEFT JOIN DRIVER_REGISTER d ON c1.DRIVER_ID=d.GUID
+    </sql>
+	
+    <select id="selectList" parameterType="CAR_REGISTER" resultMap="Car_recordResult">
+        <include refid="selectCar_register"/>
+
+        <where>
+            <if test="CAR_ID != null  and CAR_ID != '' "> and CAR_CPHM like concat(concat('%',#{CAR_ID}),'%')</if>
+            <if test="DRIVER_ID != null  and DRIVER_ID != '' "> and DRIVER_XM like concat(concat('%',#{DRIVER_ID}),'%')</if>
+            <if test="DRIVER_SPZT != null"> and DRIVER_SPZT = #{DRIVER_SPZT}</if>
+         </where>
+    </select>
+    
+    <select id="selectById" parameterType="String" resultMap="Car_recordResult">
+        <include refid="selectCar_register"/>
+        where c1.guid = #{guid}
+    </select>
+        
+    <insert id="insert" parameterType="CAR_REGISTER">
+        insert into CAR_RECORD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">GUID,</if>
+			<if test="CAR_ID != null  and CAR_ID != ''  ">CAR_ID,</if>
+			<if test="DRIVER_ID != null  and DRIVER_ID != ''  ">DRIVER_ID,</if>
+			<if test="DRIVER_WCSY != null  and DRIVER_WCSY != ''  ">DRIVER_WCSY,</if>
+			<if test="DRIVER_WCDD != null  and DRIVER_WCDD != ''  ">DRIVER_WCDD,</if>
+            <if test="DRIVER_KSSJ != null">DRIVER_KSSJ,</if>
+            <if test="DRIVER_JSSJ != null">DRIVER_JSSJ,</if>
+            <if test="DRIVER_SPZT != null">DRIVER_SPZT,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">#{GUID},</if>
+			<if test="CAR_ID != null  and CAR_ID != ''  ">#{CAR_ID},</if>
+			<if test="DRIVER_ID != null  and DRIVER_ID != ''  ">#{DRIVER_ID},</if>
+			<if test="DRIVER_WCSY != null  and DRIVER_WCSY != ''  ">#{DRIVER_WCSY},</if>
+			<if test="DRIVER_WCDD != null  and DRIVER_WCDD != ''  ">#{DRIVER_WCDD},</if>
+            <if test="DRIVER_KSSJ != null">#{DRIVER_KSSJ},</if>
+            <if test="DRIVER_JSSJ != null">#{DRIVER_JSSJ},</if>
+            <if test="DRIVER_SPZT != null">#{DRIVER_SPZT},</if>
+         </trim>
+    </insert>
+	 
+    <update id="update" parameterType="CAR_RECORD">
+        update CAR_RECORD
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="CAR_ID != null  and CAR_ID != ''  ">CAR_ID = #{CAR_ID},</if>
+            <if test="DRIVER_ID != null  and DRIVER_ID != ''  ">DRIVER_ID = #{DRIVER_ID},</if>
+            <if test="DRIVER_WCSY != null  and DRIVER_WCSY != ''  ">DRIVER_WCSY = #{DRIVER_WCSY},</if>
+            <if test="DRIVER_WCDD != null  and DRIVER_WCDD != ''  ">DRIVER_WCDD = #{DRIVER_WCDD},</if>
+            <if test="DRIVER_KSSJ != null">DRIVER_KSSJ = #{DRIVER_KSSJ},</if>
+            <if test="DRIVER_JSSJ != null">DRIVER_JSSJ = #{DRIVER_JSSJ},</if>
+            <if test="DRIVER_SPZT != null">DRIVER_SPZT = #{DRIVER_SPZT},</if>
+        </trim>
+        where GUID = #{GUID}
+    </update>
+
+	<delete id="deleteById" parameterType="String">
+        delete from CAR_RECORD where GUID = #{GUID}
+    </delete>
+	
+    <delete id="deleteByIds" parameterType="String">
+        delete from CAR_RECORD where GUID in
+        <foreach item="GUID" collection="array" open="(" separator="," close=")">
+            #{GUID}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kashen.mapper.DRIVER_REGISTERMapper">
+    
+    <resultMap type="DRIVER_REGISTER" id="Driver_registerResult">
+        <result property="GUID"    column="GUID"    />
+        <result property="DRIVER_SFZH"    column="DRIVER_SFZH"    />
+        <result property="DRIVER_XM"    column="DRIVER_XM"    />
+        <result property="DRIVER_XB"    column="DRIVER_XB"    />
+        <result property="DRIVER_JG"    column="DRIVER_JG"    />
+        <result property="DRIVER_ZZ"    column="DRIVER_ZZ"    />
+        <result property="DRIVER_MZ"    column="DRIVER_MZ"    />
+        <result property="DRIVER_JSZBH"    column="DRIVER_JSZBH"/>
+        <result property="APP_PWD"    column="APP_PWD"/>
+        <result property="DRIVER_XCZ"    column="DRIVER_XCZ" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+        <result property="DRIVER_RLMB"    column="DRIVER_RLMB"    />
+        <result property="DRIVER_SCZT"    column="DRIVER_SCZT"
+
+
+        />
+    </resultMap>
+	
+	<sql id="selectDriver_register">
+        select GUID, DRIVER_SFZH, DRIVER_XM, DRIVER_XB, DRIVER_JG, DRIVER_ZZ, DRIVER_MZ, DRIVER_JSZBH, APP_PWD,DRIVER_XCZ,DRIVER_RLMB,DRIVER_SCZT from DRIVER_REGISTER
+    </sql>
+	
+    <select id="selectList" parameterType="DRIVER_REGISTER" resultMap="Driver_registerResult">
+        <include refid="selectDriver_register"/>
+        <where>  
+            <if test="GUID != null  and GUID != '' "> and GUID = #{GUID}</if>
+            <if test="DRIVER_SFZH != null  and DRIVER_SFZH != '' "> and DRIVER_SFZH = #{DRIVER_SFZH}</if>
+            <if test="DRIVER_XM != null  and DRIVER_XM != '' "> and DRIVER_XM = #{DRIVER_XM}</if>
+            <if test="DRIVER_XB != null  and DRIVER_XB != '' "> and DRIVER_XB = #{DRIVER_XB}</if>
+            <if test="DRIVER_JG != null  and DRIVER_JG != '' "> and DRIVER_JG = #{DRIVER_JG}</if>
+            <if test="DRIVER_ZZ != null  and DRIVER_ZZ != '' "> and DRIVER_ZZ = #{DRIVER_ZZ}</if>
+            <if test="DRIVER_MZ != null  and DRIVER_MZ != '' "> and DRIVER_MZ = #{DRIVER_MZ}</if>
+            <if test="DRIVER_JSZBH != null  and DRIVER_JSZBH != '' "> and DRIVER_JSZBH = #{DRIVER_JSZBH}</if>
+            <if test="APP_PWD != null  and APP_PWD != '' "> and APP_PWD = #{APP_PWD}</if>
+            <if test="DRIVER_XCZ != null"> and DRIVER_XCZ = #{DRIVER_XCZ}</if>
+            <if test="DRIVER_RLMB != null"> and DRIVER_RLMB = #{DRIVER_RLMB}</if>
+            <if test="DRIVER_SCZT != null"> and DRIVER_SCZT = #{DRIVER_SCZT}</if>
+         </where>
+    </select>
+    
+    <select id="selectById" parameterType="String" resultMap="Driver_registerResult">
+        <include refid="selectDriver_register"/>
+        where GUID = #{GUID}
+    </select>
+        
+    <insert id="insert" parameterType="DRIVER_REGISTER">
+        insert into DRIVER_REGISTER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">GUID,</if>
+			<if test="DRIVER_SFZH != null  and DRIVER_SFZH != ''  ">DRIVER_SFZH,</if>
+			<if test="DRIVER_XM != null  and DRIVER_XM != ''  ">DRIVER_XM,</if>
+            <if test="DRIVER_XB != null  and DRIVER_XB != ''  ">DRIVER_XB,</if>
+			<if test="DRIVER_JG != null  and DRIVER_JG != ''  ">DRIVER_JG,</if>
+			<if test="DRIVER_ZZ != null  and DRIVER_ZZ != ''  ">DRIVER_ZZ,</if>
+            <if test="DRIVER_MZ != null  and DRIVER_MZ != ''  ">DRIVER_MZ,</if>
+            <if test="DRIVER_JSZBH != null  and DRIVER_JSZBH != ''  ">DRIVER_JSZBH,</if>
+            <if test="APP_PWD != null  and APP_PWD != ''  ">APP_PWD,</if>
+            <if test="DRIVER_XCZ != null">DRIVER_XCZ,</if>
+            <if test="DRIVER_RLMB != null">DRIVER_RLMB,</if>
+            <if test="DRIVER_SCZT != null">DRIVER_SCZT,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">#{GUID},</if>
+			<if test="DRIVER_SFZH != null  and DRIVER_SFZH != ''  ">#{DRIVER_SFZH},</if>
+			<if test="DRIVER_XM != null  and DRIVER_XM != ''  ">#{DRIVER_XM},</if>
+            <if test="DRIVER_XB != null  and DRIVER_XB != ''  ">#{DRIVER_XB},</if>
+			<if test="DRIVER_JG != null  and DRIVER_JG != ''  ">#{DRIVER_JG},</if>
+			<if test="DRIVER_ZZ != null  and DRIVER_ZZ != ''  ">#{DRIVER_ZZ},</if>
+            <if test="DRIVER_MZ != null  and DRIVER_MZ != ''  ">#{DRIVER_MZ},</if>
+            <if test="DRIVER_JSZBH != null  and DRIVER_JSZBH != ''  ">#{DRIVER_JSZBH},</if>
+            <if test="APP_PWD != null  and APP_PWD != ''  ">#{APP_PWD},</if>
+            <if test="DRIVER_XCZ != null">#{DRIVER_XCZ},</if>
+            <if test="DRIVER_RLMB != null">#{DRIVER_RLMB},</if>
+            <if test="DRIVER_SCZT != null">#{DRIVER_SCZT},</if>
+         </trim>
+    </insert>
+	 
+    <update id="update" parameterType="DRIVER_REGISTER">
+        update check_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="GUID != null  and GUID != ''  ">GUID = #{GUID},</if>
+            <if test="DRIVER_SFZH != null  and DRIVER_SFZH != ''  ">DRIVER_SFZH = #{DRIVER_SFZH},</if>
+            <if test="DRIVER_XM != null  and DRIVER_XM != ''  ">DRIVER_XM = #{DRIVER_XM},</if>
+            <if test="DRIVER_XB != null  and DRIVER_XB != ''  ">DRIVER_XB = #{DRIVER_XB},</if>
+            <if test="DRIVER_JG != null  and DRIVER_JG != ''  ">DRIVER_JG = #{DRIVER_JG},</if>
+            <if test="DRIVER_ZZ != null  and DRIVER_ZZ != ''  ">DRIVER_ZZ = #{DRIVER_ZZ},</if>
+            <if test="DRIVER_MZ != null  and DRIVER_MZ != ''  ">DRIVER_MZ = #{DRIVER_MZ},</if>
+            <if test="DRIVER_JSZBH != null  and DRIVER_JSZBH != ''  ">DRIVER_JSZBH = #{DRIVER_JSZBH},</if>
+            <if test="APP_PWD != null  and APP_PWD != ''  ">APP_PWD = #{APP_PWD},</if>
+            <if test="DRIVER_XCZ != null">DRIVER_XCZ = #{DRIVER_XCZ},</if>
+            <if test="DRIVER_RLMB != null">DRIVER_RLMB = #{DRIVER_RLMB},</if>
+            <if test="DRIVER_SCZT != null">DRIVER_SCZT = #{DRIVER_SCZT},</if>
+        </trim>
+        where GUID = #{GUID}
+    </update>
+
+	<delete id="deleteById" parameterType="String">
+        delete from DRIVER_REGISTER where GUID = #{GUID}
+    </delete>
+	
+    <delete id="deleteByIds" parameterType="String">
+        delete from DRIVER_REGISTER where GUID in
+        <foreach item="GUID" collection="array" open="(" separator="," close=")">
+            #{GUID}
+        </foreach>
+    </delete>
+    
+</mapper>

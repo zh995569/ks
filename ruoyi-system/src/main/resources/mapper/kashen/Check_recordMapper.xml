@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kashen.mapper.CHECK_RECORDMapper">
+    
+    <resultMap type="CHECK_RECORD" id="check_recordResult">
+        <result property="GUID"    column="GUID"    />
+        <result property="CAR_ID"    column="CAR_ID"    />
+        <result property="DRIVER_ID"    column="DRIVER_ID"    />
+        <result property="DKSJ"    column="DKSJ"    />
+        <result property="ZBX"    column="ZBX"    />
+        <result property="ZBY"    column="ZBY"    />
+        <result property="XCZ"    column="XCZ"    />
+    </resultMap>
+	
+	<sql id="selectCheck_record">
+        select GUID, CAR_ID, DRIVER_ID, DKSJ, ZBX, ZBY, XCZ from CHECK_RECORD
+    </sql>
+	
+    <select id="selectList" parameterType="CHECK_RECORD" resultMap="check_recordResult">
+        <include refid="selectCheck_record"/>
+        <where>  
+            <if test="GUID != null  and GUID != '' "> and GUID = #{GUID}</if>
+             <if test="CAR_ID != null  and CAR_ID != '' "> and CAR_ID = #{CAR_ID}</if>
+             <if test="DRIVER_ID != null  and DRIVER_ID != '' "> and DRIVER_ID = #{DRIVER_ID}</if>
+             <if test="DKSJ != null "> and DKSJ = #{DKSJ}</if>
+             <if test="ZBX != null and ZBX != '' " > and ZBX = #{ZBX}</if>
+            <if test="ZBY != null and ZBY != '' "> and ZBY = #{ZBY}</if>
+            <if test="XCZ != null"> and XCZ = #{XCZ}</if>
+         </where>
+    </select>
+    
+    <select id="selectById" parameterType="String" resultMap="check_recordResult">
+        <include refid="selectCheck_record"/>
+        where GUID = #{GUID}
+    </select>
+        
+    <insert id="insert" parameterType="CHECK_RECORD">
+        insert into CHECK_RECORD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">GUID,</if>
+			<if test="CAR_ID != null  and CAR_ID != ''  ">CAR_ID,</if>
+			<if test="DRIVER_ID != null  and DRIVER_ID != ''  ">DRIVER_ID,</if>
+			<if test="DKSJ != null  ">DKSJ,</if>
+			<if test="ZBX != null and ZBX != '' ">ZBX,</if>
+            <if test="ZBY != null and ZBY != '' ">ZBY,</if>
+            <if test="XCZ != null and XCZ != '' ">XCZ,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="GUID != null  and GUID != ''  ">#{GUID},</if>
+			<if test="CAR_ID != null  and CAR_ID != ''  ">#{CAR_ID},</if>
+			<if test="DRIVER_ID != null  and DRIVER_ID != ''  ">#{DRIVER_ID},</if>
+			<if test="DKSJ != null  ">#{DKSJ},</if>
+			<if test="ZBX != null and ZBX != '' ">#{ZBX},</if>
+            <if test="ZBY != null and ZBY != '' ">#{ZBY},</if>
+            <if test="XCZ != null">#{XCZ},</if>
+         </trim>
+    </insert>
+	 
+    <update id="update" parameterType="CHECK_RECORD">
+        update CHECK_RECORD
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="CAR_ID != null  and CAR_ID != ''  ">CAR_ID = #{CAR_ID},</if>
+            <if test="DRIVER_ID != null  and DRIVER_ID != ''  ">DRIVER_ID = #{DRIVER_ID},</if>
+            <if test="DKSJ != null  ">DKSJ = #{DKSJ},</if>
+            <if test="ZBX != null and ZBX != '' ">ZBX = #{ZBX},</if>
+            <if test="ZBY != null and ZBY != '' ">ZBY = #{ZBY},</if>
+            <if test="XCZ != null ">XCZ = #{XCZ},</if>
+        </trim>
+        where GUID = #{GUID}
+    </update>
+
+	<delete id="deleteById" parameterType="String">
+        delete from CHECK_RECORD where GUID = #{GUID}
+    </delete>
+	
+    <delete id="deleteByIds" parameterType="String">
+        delete from CHECK_RECORD where GUID in
+        <foreach item="GUID" collection="array" open="(" separator="," close=")">
+            #{GUID}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-record-edit" th:object="${car_register}">
+            <input id="GUID" name="GUID" th:field="*{GUID}"  type="hidden">
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">大架子编号：</label>
+					<input id="CAR_DJZH" name="CAR_DJZH" th:field="*{CAR_DJZH}" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车牌号码：</label>
+					<input id="CAR_CPHM" name="CAR_CPHM" th:field="*{CAR_CPHM}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">机动车编号：</label>
+					<input id="CAR_JDCBH" name="CAR_JDCBH" th:field="*{CAR_JDCBH}" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车辆型号：</label>
+					<input id="CAR_CLXH" name="CAR_CLXH" th:field="*{CAR_CLXH}" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车辆品牌：</label>
+					<input id="CAR_CLPP" name="CAR_CLPP" th:field="*{CAR_CLPP}" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车辆颜色：</label>
+					<input id="CAR_CLYS" name="CAR_CLYS" th:field="*{CAR_CLYS}" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车主姓名：</label>
+					<input id="CAR_CZXM" name="CAR_CZXM" th:field="*{CAR_CZXM}" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车辆状态：</label>
+					<!--<input id="CAR_CLZT" name="CAR_CLZT" th:field="*{CAR_CLZT}" class="form-control" type="text">-->
+					<div class="layui-input-block">
+						<select name="CAR_CLZT" class="form-control m-b" lay-verify="required">
+							<option value="" th:selected="*{CAR_CLZT==''}"></option>
+							<option value="0" th:selected="*{CAR_CLZT=='0'}">在场</option>
+							<option value="1" th:selected="*{CAR_CLZT=='1'}">外出作业</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车主性别：</label>
+					<input id="CAR_CZXB" name="CAR_CZXB" th:field="*{CAR_CZXB}" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车主民族：</label>
+					<input id="CAR_CZMZ" name="CAR_CZMZ" th:field="*{CAR_CZMZ}" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车主身份证号码：</label>
+					<input id="CAR_CZSFZH" name="CAR_CZSFZH" th:field="*{CAR_CZSFZH}" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车主住址：</label>
+					<input id="CAR_CZDZ" name="CAR_CZDZ" th:field="*{CAR_CZDZ}" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">车主籍贯：</label>
+					<input id="CAR_CZJG" name="CAR_CZJG" th:field="*{CAR_CZJG}" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">车主联系电话：</label>
+					<input id="CAR_CZLXDH" name="CAR_CZLXDH" th:field="*{CAR_CZLXDH}" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">登记时间：</label>
+					<!--<input type="text" class="form-control time-input" id="CAR_DJSJ" placeholder="" name="CAR_DJSJ"/>-->
+					<input id="CAR_DJSJ" name="CAR_DJSJ" th:value="*{#dates.format(CAR_DJSJ, 'yyyy-MM-dd HH:mm:ss')}" class="form-control time-input" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">所属警务站：</label>
+					<input id="CAR_SSJWZ" name="CAR_SSJWZ" th:field="*{CAR_SSJWZ}" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label">所属派出所：</label>
+					<input id="CAR_SSPCS" name="CAR_SSPCS" th:field="*{CAR_SSPCS}" class="form-control" type="text">
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">所属区域：</label>
+					<input id="CAR_SSQY" name="CAR_SSQY" th:field="*{CAR_SSQY}" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					<label class="control-label" th:field="*{CAR_SFSC}">是否审查：</label>
+					<!--<input id="CAR_SFSC" name="CAR_SFSC" th:field="*{CAR_SFSC}" class="form-control" type="text">-->
+					<div class="layui-input-block">
+						<select name="CAR_SFSC" class="form-control m-b" lay-verify="required">
+							<option value="" th:selected="*{CAR_SFSC==null}"></option>
+							<option value="0" th:selected="*{CAR_SFSC==0}">未审查</option>
+							<option value="1" th:selected="*{CAR_SFSC==1}">已审查</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">生成二维码：</label>
+					<input type="button" id="CAR_RWM" class="form-control" onclick="downPic();" value="点击下载二维码图片">
+					<!--<input id="CAR_RWM" class="form-control" type="text">-->
+				</div>
+				<div id="code" style="display: none;"></div>
+				<div id="qrcode" style="display: none;"></div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "kashen/car_register"
+		$("#form-record-edit").validate({
+            rules:{
+                CAR_DJZH:{
+                    required:true,
+                },
+                CAR_CPHM:{
+                    required:true,
+                },
+                CAR_CZXM:{
+                    required:true,
+                },
+                CAR_CLZT:{
+                    required:true,
+                },
+                CAR_CZSFZH:{
+                    required:true,
+                    isIdentity:true,
+                },
+                CAR_CZLXDH:{
+                    required:true,
+                    isPhone:true,
+                }
+            }
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-record-edit').serialize());
+	        }
+	    }
+
+	    function downPic() {
+		    //生成二维码
+			var guid = $("#GUID").val();
+            $('#code').qrcode(guid);
+			// 将生成后的二维码加入到容器·
+            //获取页面的cavase对象插入DOM中
+            var mycanvas1 = document.getElementsByTagName('canvas')[0];
+			//将转换后的img标签插入到html中
+            var img = convertCanvasToImage(mycanvas1);
+			//防止重复加载，加载前先清空装img 的容器
+            $('#qrcode').empty();
+            //qrcode表示你要插入的容器id
+            $('#qrcode').append(img);
+			//下载图片
+            var img = $('#qrcode').children('img').attr("src");
+            var alink = document.createElement("a");
+            alink.href = img;
+            alink.download = "车辆二维码.png";
+            alink.click();
+        }
+        //转换时需要的方法
+        //从canvas中提取图片image
+        var convertCanvasToImage = function convertCanvasToImage(canvas) {
+            //新Image对象，可以理解为DOM
+            var image = new Image();
+            // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
+            // 指定格式PNG
+            image.src = canvas.toDataURL("image/png");
+            return image;
+        };
+
+	</script>
+	<!--<script type="text/javascript" src="../../../static/js/jquery.qrcode.js"></script>-->
+	<script th:src="@{/js/jquery.qrcode.min.js}"></script>
+</body>
+</html>

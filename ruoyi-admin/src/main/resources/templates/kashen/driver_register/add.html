@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../static/css/cropper.min.css" th:href="@{/css/cropper.min.css}">
+<link rel="stylesheet" href="../../../static/css/ImgCropping.css" th:href="@{/css/ImgCropping.css}">
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/cropper.min.js}"></script>
+
+<head th:include="include :: header">
+
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-record-add" enctype="multipart/form-data" method="post" action="/kashen/driver_register/add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">驾驶员身份证：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_SFZH" name="DRIVER_SFZH" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">姓名：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_XM" name="DRIVER_XM" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">性别：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_XB" name="DRIVER_XB" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">籍贯：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_JG" name="DRIVER_JG" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">住址：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_ZZ" name="DRIVER_ZZ" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">民族：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_MZ" name="DRIVER_MZ" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">驾驶证编号：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_JSZBH" name="DRIVER_JSZBH" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">app登录密码：</label>
+				<div class="col-sm-8">
+					<input id="APP_PWD" name="APP_PWD" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">驾驶员现场照片 base64：</label>
+				<div class="col-sm-8">
+					<!--<input id="DRIVER_XCZ" name="DRIVER_XCZ" class="form-control" type="text">-->
+					<!--<input class="form-control" type="file" name="DRIVER_XCZ" ID="DRIVER_XCZ" accept="image/png,image/jpeg"/>-->
+					<!--<input id="DRIVER_XCZ" name="DRIVER_XCZ" class="form-control" onclick="photo();" value="点击拍照" type="button">-->
+					<!--<button id="camera" class="form-control">点击拍照</button>-->
+					<!--canvs绘制-->
+					<!--<canvas width="128" height="96" id="outrec"></canvas>-->
+					<!--base64绘制-->
+					<!--<img id="imgvideo" name="DRIVER_XCZ" style="display:none;" width="640" height="480" src="" />-->
+
+					<video id="video" width="240" height="180" style="border: 1px solid red"></video>
+					<button id='tack' class="form-control">点击拍照</button>
+					<canvas id='canvas' width='230' height='180' style="float:left;border: 1px solid yellow"></canvas>
+					<img id='img' name="DRIVER_XCZ" style="float: left;border: 1px solid red" src=''>
+					<input type="text" style="display: none" id="xcz" name="xcz" value="">
+				</div>
+			</div>
+			<!--<div class="form-group">
+				<label class="col-sm-3 control-label">人脸模板：</label>
+				<div class="col-sm-8">
+					<input id="DRIVER_RLMB" name="DRIVER_RLMB" class="form-control" type="text">
+				</div>
+			</div>-->
+			<div class="form-group">
+				<label class="col-sm-3 control-label">人员审查状态：</label>
+				<div class="col-sm-8">
+					<!--<input id="DRIVER_SCZT" name="DRIVER_SCZT" class="form-control" type="text">-->
+					<select name="DRIVER_SCZT" class="form-control m-b" lay-verify="required">
+						<option value=""></option>
+						<option value="0">未审查</option>
+						<option value="1">审查</option>
+					</select>
+				</div>
+			</div>
+		</form>
+
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "kashen/driver_register"
+		$("#form-record-add").validate({
+            rules:{
+                DRIVER_SFZH:{
+                    required:true,
+                    isIdentity:true
+                },
+                DRIVER_XM:{
+                    required:true
+                },
+                DRIVER_SCZT:{
+                    required:true
+                },
+                xcz:{
+                    required:true
+                }
+            }
+		});
+		
+		function submitHandler() {
+            //var formData = new FormData($( "#form-record-add" )[0]);
+            var v = $("#img").attr("src");
+            $("#xcz").val(v);
+            if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-record-add').serialize());
+                //$('#form-record-add').submit();
+                /*$.ajax({
+                    //url: prefix + "/add" ,
+					url: 'add',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        alert("1111");
+                        console.log(data);
+                       /!* $.operate.successCallback(returndata);*!/
+                    },
+                    error: function (returndata) {
+
+                    }
+                });*/
+            }
+	    }
+
+
+        var video = document.getElementById('video'),
+            canvas = document.getElementById('canvas'),
+            snap = document.getElementById('tack'),
+            img = document.getElementById('img'),
+            vendorUrl = window.URL || window.webkitURL;
+
+        //媒体对象
+        navigator.getMedia = navigator.getUserMedia ||
+            navagator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia;
+        navigator.getMedia({
+            video: true, //使用摄像头对象
+            audio: false  //不适用音频
+        }, function(strem){
+            console.log(strem);
+            video.src = vendorUrl.createObjectURL(strem);
+            video.play();
+        }, function(error) {
+            //error.code
+            console.log(error);
+        });
+        snap.addEventListener('click', function(){
+            //绘制canvas图形
+            canvas.getContext('2d').drawImage(video, 0, 0, 240, 180);
+            //把canvas图像转为img图片
+            img.src = canvas.toDataURL("image/png");
+        })
+
+	</script>
+</body>
+</html>
