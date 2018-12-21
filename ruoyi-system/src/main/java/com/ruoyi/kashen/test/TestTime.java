@@ -7,7 +7,7 @@ import java.util.Date;
 public class TestTime {
 
     public static void main(String[] args) {
-        //这个文件已经修改了的，没有上传   顶顶顶
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long longTime = new Date().getTime();
         //返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。
