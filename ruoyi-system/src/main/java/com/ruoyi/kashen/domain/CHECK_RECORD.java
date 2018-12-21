@@ -1,5 +1,7 @@
 package com.ruoyi.kashen.domain;
 
+import com.ruoyi.common.base.BaseEntity;
+
 import java.util.Arrays;
 import java.util.Date;
 
@@ -10,7 +12,7 @@ import java.util.Date;
  * @Date 2018/11/29 10:32
  * Version 1.0
  */
-public class CHECK_RECORD {
+public class CHECK_RECORD extends BaseEntity{
     private String GUID;
     private String CAR_ID;
     private String DRIVER_ID;
