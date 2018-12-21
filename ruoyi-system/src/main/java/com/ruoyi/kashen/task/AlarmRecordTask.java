@@ -16,8 +16,6 @@ import java.util.Date;
 @EnableScheduling
 public class AlarmRecordTask {
 
-    @Autowired
-    private ICheck_recordService check_recordService;
 
     @Autowired
     private CHECK_RECORDMapper checkRecordMapper;
