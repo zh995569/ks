@@ -49,7 +49,6 @@ public class Car_registerController extends BaseController{
     {
         startPage();
         List<CAR_REGISTER> list = car_registerService.selectList(car_register);
-        System.out.println(list.get(0).toString());
         return getDataTable(list);
     }
 
