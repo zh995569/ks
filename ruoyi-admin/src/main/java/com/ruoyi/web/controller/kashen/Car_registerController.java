@@ -9,6 +9,8 @@ import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.kashen.domain.CAR_REGISTER;
 import com.ruoyi.kashen.service.ICar_recordService;
 import com.ruoyi.kashen.service.ICar_registerService;
+import com.ruoyi.system.domain.SysRole;
+import com.ruoyi.system.domain.SysUser;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +50,14 @@ public class Car_registerController extends BaseController{
     public TableDataInfo list(CAR_REGISTER car_register)
     {
         startPage();
+        SysUser user = this.getSysUser();
+        System.out.println(user.toString());
+        List<SysRole> roleList = user.getRoles();
+        for(SysRole sysRole:roleList){
+            if ("125".equals(sysRole.getRoleId().toString())){
+                car_register.setCAR_SFSC(0);
+            }
+        }
         List<CAR_REGISTER> list = car_registerService.selectList(car_register);
         return getDataTable(list);
     }
