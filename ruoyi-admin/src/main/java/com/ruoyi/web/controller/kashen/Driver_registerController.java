@@ -49,7 +49,6 @@ public class Driver_registerController extends BaseController{
     {
         startPage();
         SysUser user = this.getSysUser();
-        System.out.println(user.toString());
         List<SysRole> roleList = user.getRoles();
         for(SysRole sysRole:roleList){
             if ("125".equals(sysRole.getRoleId().toString())){
