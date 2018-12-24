@@ -53,8 +53,8 @@
 	</div>
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('system:record:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('system:record:remove')}]];
+        var editFlag = [[${@permission.hasPermi('system:driver_register:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:driver_register:remove')}]];
         var prefix = ctx + "kashen/driver_register";
 
         $(function() {
