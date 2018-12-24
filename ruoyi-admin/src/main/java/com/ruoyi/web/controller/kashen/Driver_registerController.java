@@ -8,6 +8,8 @@ import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.kashen.domain.DRIVER_REGISTER;
 import com.ruoyi.kashen.service.IDriver_registerService;
+import com.ruoyi.system.domain.SysRole;
+import com.ruoyi.system.domain.SysUser;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,14 @@ public class Driver_registerController extends BaseController{
     public TableDataInfo list(DRIVER_REGISTER driver_register)
     {
         startPage();
+        SysUser user = this.getSysUser();
+        System.out.println(user.toString());
+        List<SysRole> roleList = user.getRoles();
+        for(SysRole sysRole:roleList){
+            if ("125".equals(sysRole.getRoleId().toString())){
+                driver_register.setDRIVER_SCZT(0);
+            }
+        }
         List<DRIVER_REGISTER> list = driver_registerService.selectList(driver_register);
         return getDataTable(list);
     }
