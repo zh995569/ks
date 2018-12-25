@@ -2,6 +2,9 @@ package com.ruoyi.kashen.task;
 
 
 
+import com.ruoyi.kashen.domain.ALARM_RECORD;
+import com.ruoyi.kashen.domain.CHECK_RECORD;
+import com.ruoyi.kashen.mapper.ALARM_RECORDMapper;
 import com.ruoyi.kashen.mapper.CHECK_RECORDMapper;
 import com.ruoyi.kashen.service.ICheck_recordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Component
 @EnableScheduling
@@ -20,14 +26,28 @@ public class AlarmRecordTask {
     @Autowired
     private CHECK_RECORDMapper checkRecordMapper;
 
-    @Scheduled(cron = "0/30 * *  * * ?")
-    public void work() throws InterruptedException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        long longTime = new Date().getTime();
+    @Autowired
+    private ALARM_RECORDMapper alarm_recordMapper;
 
-        //System.out.println("long为：" + longTime);
-        System.out.println("日期为："+ sdf.format(new Date(longTime)));
-        System.out.println("定时检查过期打卡执行");
+    @Scheduled(cron = "0/50 * *  * * ?")
+    public void work() throws InterruptedException {
+        //查询未打卡记录
+        List<CHECK_RECORD> unpunch =  checkRecordMapper.selectUnpunch();
+        if(unpunch != null && unpunch.size() > 0) {
+            System.out.println("每隔50秒查询一次记录----------总记录数为：" + unpunch.size() +"次");
+            for(CHECK_RECORD c : unpunch) {
+                ALARM_RECORD alarm_record = new ALARM_RECORD();
+                alarm_record.setGUID(UUID.randomUUID().toString());
+                alarm_record.setDRVIER_GUID("11");
+                alarm_record.setCAR_GUID(c.getCAR_ID());
+                alarm_record.setALARM_TIME(new Date());
+                alarm_record.setALARM_ZT(0);
+
+                //alarm_recordMapper.insertUnPunch(alarm_record);
+            }
+
+        }
+
     }
 
 }
