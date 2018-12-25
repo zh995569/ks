@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectById" parameterType="String" resultMap="check_recordResult">
         <include refid="selectCheck_record"/>
-        where GUID = #{GUID}
+        where c1.GUID = #{GUID}
     </select>
         
     <insert id="insert" parameterType="CHECK_RECORD">

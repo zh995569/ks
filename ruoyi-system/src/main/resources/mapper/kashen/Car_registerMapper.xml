@@ -38,19 +38,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="GUID != null  and GUID != '' "> and GUID = #{GUID}</if>
             <if test="CAR_DJZH != null  and CAR_DJZH != '' "> and CAR_DJZH = #{CAR_DJZH}</if>
-            <if test="CAR_CPHM != null  and CAR_CPHM != '' "> and CAR_CPHM = #{CAR_CPHM}</if>
+            <if test="CAR_CPHM != null  and CAR_CPHM != '' "> and CAR_CPHM like concat(concat('%',#{CAR_CPHM}),'%')</if>
             <if test="CAR_JDCBH != null  and CAR_JDCBH != '' "> and CAR_JDCBH = #{CAR_JDCBH}</if>
             <if test="CAR_CLXH != null  and CAR_CLXH != '' "> and CAR_CLXH = #{CAR_CLXH}</if>
             <if test="CAR_CLPP != null  and CAR_CLPP != '' "> and CAR_CLPP = #{CAR_CLPP}</if>
-            <if test="CAR_CZXM != null  and CAR_CZXM != '' "> and CAR_CZXM = #{CAR_CZXM}</if>
+            <if test="CAR_CZXM != null  and CAR_CZXM != '' "> and CAR_CZXM like concat(concat('%',#{CAR_CZXM}),'%')</if>
             <if test="CAR_CLZT != null  and CAR_CLZT != '' "> and CAR_CLZT = #{CAR_CLZT}</if>
             <if test="CAR_CZXB != null  and CAR_CZXB != '' "> and CAR_CZXB = #{CAR_CZXB}</if>
             <if test="CAR_CZMZ != null  and CAR_CZMZ != '' "> and CAR_CZMZ = #{CAR_CZMZ}</if>
-            <if test="CAR_CZSFZH != null  and CAR_CZSFZH != '' "> and CAR_CZSFZH = #{CAR_CZSFZH}</if>
+            <if test="CAR_CZSFZH != null  and CAR_CZSFZH != '' "> and CAR_CZSFZH like concat(concat('%',#{CAR_CZSFZH}),'%')</if>
             <if test="CAR_CZDZ != null  and CAR_CZDZ != '' "> and CAR_CZDZ = #{CAR_CZDZ}</if>
             <if test="CAR_CZJG != null  and CAR_CZJG != '' "> and CAR_CZJG = #{CAR_CZJG}</if>
-            <if test="CAR_CZLXDH != null  and CAR_CZLXDH != '' "> and CAR_CZLXDH = #{CAR_CZLXDH}</if>
-            <if test="CAR_DJSJ != null  and CAR_DJSJ != '' "> and CAR_DJSJ = #{CAR_DJSJ}</if>
+            <if test="CAR_CZLXDH != null  and CAR_CZLXDH != '' "> and CAR_CZLXDH like concat(concat('%',#{CAR_CZLXDH}),'%')</if>
+            <!--<if test="CAR_DJSJ != null  and CAR_DJSJ != '' "> and CAR_DJSJ = #{CAR_DJSJ}</if>-->
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and CAR_DJSJ &gt;= to_date(#{params.beginTime},'yyyy-MM-dd HH24:mi:ss')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and CAR_DJSJ &lt;= to_date(#{params.endTime},'yyyy-MM-dd HH24:mi:ss')
+            </if>
             <if test="CAR_SSJWZ != null  and CAR_SSJWZ != '' "> and CAR_SSJWZ = #{CAR_SSJWZ}</if>
             <if test="CAR_SSPCS != null  and CAR_SSPCS != '' "> and CAR_SSPCS = #{CAR_SSPCS}</if>
             <if test="CAR_SSQY != null  and CAR_SSQY != '' "> and CAR_SSQY = #{CAR_SSQY}</if>
