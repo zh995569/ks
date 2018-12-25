@@ -2,13 +2,19 @@ package com.ruoyi.kashen.service.impl;
 
 
 import com.ruoyi.common.support.Convert;
+import com.ruoyi.kashen.domain.CAR_REGISTER;
+import com.ruoyi.kashen.domain.DRIVER_REGISTER;
 import com.ruoyi.kashen.domain.CHECK_RECORD;
 
+import com.ruoyi.kashen.mapper.CAR_RECORDMapper;
+import com.ruoyi.kashen.mapper.CAR_REGISTERMapper;
 import com.ruoyi.kashen.mapper.CHECK_RECORDMapper;
+import com.ruoyi.kashen.mapper.DRIVER_REGISTERMapper;
 import com.ruoyi.kashen.service.ICheck_recordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +29,12 @@ public class Check_recordServiceImpl implements ICheck_recordService {
     @Autowired
     private CHECK_RECORDMapper check_recordMapper;
 
+    @Autowired
+    private DRIVER_REGISTERMapper driver_registerMapper;
+
+    @Autowired
+    private CAR_REGISTERMapper car_registerMapper;
+
     @Override
     public CHECK_RECORD selectById(String guid) {
         return check_recordMapper.selectById(guid);
@@ -35,6 +47,7 @@ public class Check_recordServiceImpl implements ICheck_recordService {
 
     @Override
     public int insert(CHECK_RECORD check_record) {
+
         return check_recordMapper.insert(check_record);
     }
 
