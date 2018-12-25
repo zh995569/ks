@@ -30,6 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from CHECK_RECORD c1 LEFT JOIN CAR_REGISTER c2 on c1.CAR_ID = c2.GUID
         LEFT JOIN DRIVER_REGISTER d on c1.DRIVER_ID = d.GUID
     </sql>
+
+    <sql id="selectCheck_Unpunch">
+        SELECT a.* FROM CHECK_RECORD a,
+        (SELECT DRIVER_ID,max(DKSJ) AS DKSJ FROM CHECK_RECORD WHERE DKSJ &lt; sysdate-2 GROUP BY DRIVER_ID) b
+        WHERE a.DRIVER_ID=b.DRIVER_ID AND a.DKSJ=b.DKSJ
+    </sql>
 	
     <select id="selectList" parameterType="CHECK_RECORD" resultMap="check_recordResult">
         <include refid="selectCheck_record"/>
@@ -53,7 +59,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectCheck_record"/>
         where c1.GUID = #{GUID}
     </select>
-        
+
+    <select id="selectUnpunch"  resultMap="check_recordResult">
+        <include refid="selectCheck_Unpunch"/>
+
+    </select>
+
     <insert id="insert" parameterType="CHECK_RECORD">
         insert into CHECK_RECORD
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -99,5 +110,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{GUID}
         </foreach>
     </delete>
+
+
     
 </mapper>

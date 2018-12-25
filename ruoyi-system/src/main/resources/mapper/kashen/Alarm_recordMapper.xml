@@ -49,6 +49,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="ALARM_ZT != null ">#{ALARM_ZT},</if>
          </trim>
     </insert>
+
+    <insert id="insertUnPunch" parameterType="ALARM_RECORD">
+        insert into ALARM_RECORD
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="GUID != null  and GUID != ''  ">GUID,</if>
+            <if test="DRVIER_GUID != null  and DRVIER_GUID != ''  ">DRVIER_GUID,</if>
+            <if test="CAR_GUID != null  and CAR_GUID != ''  ">CAR_GUID,</if>
+            <if test="ALARM_TIME != null  ">ALARM_TIME,</if>
+            <if test="ALARM_ZT != null  ">ALARM_ZT,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="GUID != null  and GUID != ''  ">#{GUID},</if>
+            <if test="DRVIER_GUID != null  and DRVIER_GUID != ''  ">#{DRVIER_GUID},</if>
+            <if test="CAR_GUID != null  and CAR_GUID != ''  ">#{CAR_GUID},</if>
+            <if test="ALARM_TIME != null  ">#{ALARM_TIME},</if>
+            <if test="ALARM_ZT != null ">#{ALARM_ZT},</if>
+        </trim>
+    </insert>
 	 
     <update id="update" parameterType="ALARM_RECORD">
         update ALARM_RECORD

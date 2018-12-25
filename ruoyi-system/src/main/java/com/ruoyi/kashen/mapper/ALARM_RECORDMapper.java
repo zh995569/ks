@@ -23,6 +23,7 @@ public interface ALARM_RECORDMapper {
 
     public int deleteById(String guid);
 
-
     public int deleteByIds(String[] guids);
+
+    public int insertUnPunch(ALARM_RECORD alarm_record);
 }

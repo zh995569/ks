@@ -22,4 +22,6 @@ public interface CHECK_RECORDMapper {
 
 
     public int deleteByIds(String[] guids);
+
+    public List<CHECK_RECORD> selectUnpunch();
 }
