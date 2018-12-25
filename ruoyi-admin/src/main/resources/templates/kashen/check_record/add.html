@@ -11,7 +11,7 @@
 					<!--<input id="CAR_ID" name="CAR_ID" class="form-control" type="text">-->
 					<select id="CAR_ID" name="CAR_ID" class="form-control m-b">
 						<option value="">　</option>
-						<option th:each="car_register:${car_registers}" th:value="${car_register.CAR_CPHM}" th:text="${car_register.CAR_CPHM}"></option>
+						<option th:each="car_register:${car_registers}" th:value="${car_register.GUID}" th:text="${car_register.CAR_CPHM}"></option>
 					</select>
 				</div>
 			</div>

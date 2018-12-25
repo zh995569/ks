@@ -11,15 +11,18 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								车辆编号：<input type="text" name="CAR_ID"/>
+								车牌号码：<input type="text" name="CAR_ID"/>
 							</li>
 
 							<li>
-								驾驶员编号：<input type="text" name="DRIVER_ID"/>
+								驾驶员姓名：<input type="text" name="DRIVER_ID"/>
 							</li>
 
-							<li>
-								打卡时间：<input type="text" name="DKSJ"/>
+							<li class="select-time">
+								<label>打卡时间： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<span>-</span>
+								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
 							</li>
 
 							<li>
@@ -84,12 +87,12 @@
 					visible: false
 				},
 				{
-					field : 'car_ID',
-					title : '车辆编号'
+					field : 'car_register.car_CPHM',
+					title : '车牌号码'
 				},
 				{
-					field : 'driver_ID',
-					title : '驾驶员编号'
+					field : 'driver_register.driver_XM',
+					title : '驾驶员姓名'
 				},
 				{
 					field : 'dksj', 
