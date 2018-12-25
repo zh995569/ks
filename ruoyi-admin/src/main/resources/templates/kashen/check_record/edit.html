@@ -13,7 +13,7 @@
 					<select id="CAR_ID" name="CAR_ID" class="form-control m-b">
 						<!--<option value="">　</option>-->
 						<option th:each="car_register:${car_registers}" th:value="${car_register.GUID}"
-								th:selected="${CAR_ID eq car_register.GUID}" th:text="${car_register.CAR_CPHM}"></option>
+								th:selected="${check_record.CAR_ID eq car_register.GUID}" th:text="${car_register.CAR_CPHM}"></option>
 					</select>
 				</div>
 			</div>
@@ -25,7 +25,7 @@
 					<select id="DRIVER_ID" name="DRIVER_ID" class="form-control m-b">
 						<!--<option value="">　</option>-->
 						<option th:each="driver_register:${driver_registers}" th:value="${driver_register.GUID}"
-								th:selected="${DRIVER_ID eq driver_register.GUID}" th:text="${driver_register.DRIVER_XM}"></option>
+								th:selected="${check_record.DRIVER_ID eq driver_register.GUID}" th:text="${driver_register.DRIVER_XM}"></option>
 					</select>
 				</div>
 			</div>
