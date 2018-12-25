@@ -59,8 +59,8 @@ function drawLegend(pointColor,pointY,text){
 
 //存储
 function renderLayer03Right(){
-	drawLayer03Right($("#layer03_right_chart01 canvas").get(0),"#027825",0.66);
-	drawLayer03Right($("#layer03_right_chart02 canvas").get(0),"#006DD6",0.52);
+	drawLayer03Right($("#layer03_right_chart01 canvas").get(0),"#027825",0.82);
+	drawLayer03Right($("#layer03_right_chart02 canvas").get(0),"#006DD6",0.67);
 	drawLayer03Right($("#layer03_right_chart03 canvas").get(0),"#238681",0.34);
 }
 
@@ -113,15 +113,18 @@ function renderChartBar01(){
 							trigger: 'item',
 							formatter: "{b} : {c} ({d}%)"
 						},
-						legend: {
-							show:false,
-							x : 'center',
-							y : 'bottom',
-							data:['A','B','C','D','E','F','G']
+						legend: {//饼图说明显示
+							textStyle:{//说明文本样式
+								fontSize:24
+							},
+							show:false,//显示或隐藏
+							x : 'center',//x坐标
+							y : 'bottom',//y坐标
+							data:['A','B','C','D','E','F','G']//内容，与series里的name一致，不一致就不会显示出来
 						},
 						toolbox: {
 						},
-						label:{
+						label:{//圆周围的文字显示
 							normal:{
 								show: true, 
 								formatter: "{b} \n{d}%"
@@ -133,10 +136,10 @@ function renderChartBar01(){
 							{
 								name:'',
 								type:'pie',
-								radius : [40, 80],
-								center : ['50%', '50%'],
-								//roseType : 'area',
-								data:[
+								radius : ['30%', '80%'],//圆的大小
+								center : ['40%', '50%'],//圆心显示位置
+								//roseType : 'area',//以半径来显示占比
+								data:[//占比和name
 									{value:4600, name:'A'},
 									{value:4600, name:'B'},
 									{value:15600, name:'C'},
