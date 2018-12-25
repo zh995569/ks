@@ -97,16 +97,6 @@ public class CHECK_RECORD extends BaseEntity{
 
     @Override
     public String toString() {
-        return "CHECK_RECORD{" +
-                "GUID='" + GUID + '\'' +
-                ", CAR_ID='" + CAR_ID + '\'' +
-                ", DRIVER_ID='" + DRIVER_ID + '\'' +
-                ", DKSJ=" + DKSJ +
-                ", ZBX='" + ZBX + '\'' +
-                ", ZBY='" + ZBY + '\'' +
-                ", XCZ=" + Arrays.toString(XCZ) +
-                ", car_register=" + car_register +
-                ", driver_register=" + driver_register +
-                '}';
+        return "CHECK_RECORD{" + "GUID='" + GUID + '\'' + ", CAR_ID='" + CAR_ID + '\'' + ", DRIVER_ID='" + DRIVER_ID + '\'' + ", DKSJ=" + DKSJ + ", ZBX='" + ZBX + '\'' + ", ZBY='" + ZBY + '\'' + ", XCZ=" + Arrays.toString(XCZ) + ", car_register=" + car_register + ", driver_register=" + driver_register + '}';
     }
 }

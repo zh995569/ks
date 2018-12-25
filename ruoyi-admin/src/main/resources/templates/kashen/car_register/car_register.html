@@ -28,7 +28,7 @@
 							</li>
 
 							<li>
-								车主　联系电话：<input type="text" name="CAR_CZLXDH"/>
+								车主联系电话：<input type="text" name="CAR_CZLXDH"/>
 							</li>
 
 							<li>
@@ -40,9 +40,24 @@
 								</select>
 							</li>
 
-							<li class="select-time">
+							<!--<li>
+								审查状态：
+								<select name="CAR_SFSC" class="m-b" lay-verify="required">
+									<option></option>
+									<option value=0>未审查</option>
+									<option value=1>已审查</option>
+								</select>
+							</li>-->
+
+							<!--<li class="select-time">
 								<label>登记时间： </label>
 								<input type="text" class="time-input" id="CAR_DJSJ" placeholder="" name="CAR_DJSJ"/>
+							</li>-->
+							<li class="select-time">
+								<label>登记时间： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<span>-</span>
+								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
 							</li>
 
 							<li>
@@ -128,6 +143,18 @@
 					        return "外出作业";
 						}
                     }
+				},
+				{
+					field : 'car_SFSC',
+					title : '审查状态',
+					formatter: function(value, row, index) {
+						if (value=="0"){
+							return "未审查";
+						}
+						if (value=="1"){
+							return "已审查";
+						}
+					}
 				},
 		        {
 		            title: '操作',
