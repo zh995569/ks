@@ -20,6 +20,8 @@ public class CHECK_RECORD extends BaseEntity{
     private String ZBX;
     private String ZBY;
     private byte[] XCZ;
+    private CAR_REGISTER car_register;
+    private DRIVER_REGISTER driver_register;
 
     public String getGUID() {
         return GUID;
@@ -77,16 +79,24 @@ public class CHECK_RECORD extends BaseEntity{
         this.XCZ = XCZ;
     }
 
+    public CAR_REGISTER getCar_register() {
+        return car_register;
+    }
+
+    public void setCar_register(CAR_REGISTER car_register) {
+        this.car_register = car_register;
+    }
+
+    public DRIVER_REGISTER getDriver_register() {
+        return driver_register;
+    }
+
+    public void setDriver_register(DRIVER_REGISTER driver_register) {
+        this.driver_register = driver_register;
+    }
+
     @Override
     public String toString() {
-        return "CHECK_RECORD{" +
-                "GUID='" + GUID + '\'' +
-                ", CAR_ID='" + CAR_ID + '\'' +
-                ", DRIVER_ID='" + DRIVER_ID + '\'' +
-                ", DKSJ=" + DKSJ +
-                ", ZBX='" + ZBX + '\'' +
-                ", ZBY='" + ZBY + '\'' +
-                ", XCZ=" + Arrays.toString(XCZ) +
-                '}';
+        return "CHECK_RECORD{" + "GUID='" + GUID + '\'' + ", CAR_ID='" + CAR_ID + '\'' + ", DRIVER_ID='" + DRIVER_ID + '\'' + ", DKSJ=" + DKSJ + ", ZBX='" + ZBX + '\'' + ", ZBY='" + ZBY + '\'' + ", XCZ=" + Arrays.toString(XCZ) + ", car_register=" + car_register + ", driver_register=" + driver_register + '}';
     }
 }
