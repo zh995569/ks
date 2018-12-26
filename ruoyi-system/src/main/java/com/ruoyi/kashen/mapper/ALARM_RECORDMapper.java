@@ -11,6 +11,8 @@ public interface ALARM_RECORDMapper {
 
     public ALARM_RECORD selectById(String guid);
 
+    public ALARM_RECORD selectByCarRecordId(String carRecordId);
+
 
     public List<ALARM_RECORD> selectList(ALARM_RECORD alarm_record);
 

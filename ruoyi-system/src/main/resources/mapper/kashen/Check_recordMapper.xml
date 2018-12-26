@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="ZBX"    column="ZBX"    />
         <result property="ZBY"    column="ZBY"    />
         <result property="XCZ"    column="XCZ"    />
+        <result property="CAR_RECORD_ID"    column="CAR_RECORD_ID"    />
         <association property="car_register"    column="CAR_ID" javaType="CAR_REGISTER" resultMap="car_registerResult" />
         <association property="driver_register"    column="DRIVER_ID" javaType="DRIVER_REGISTER" resultMap="driver_registerResult" />
     </resultMap>
@@ -26,15 +27,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectCheck_record">
-        select c1.GUID,c1.CAR_ID,c1.DRIVER_ID,c1.DKSJ,c1.ZBX,c1.ZBY,c1.XCZ ,c2.CAR_CPHM,d.DRIVER_XM
+        select c1.GUID,c1.CAR_ID,c1.DRIVER_ID,c1.DKSJ,c1.ZBX,c1.ZBY,c1.XCZ ,c1.CAR_RECORD_ID,c2.CAR_CPHM,d.DRIVER_XM
         from CHECK_RECORD c1 LEFT JOIN CAR_REGISTER c2 on c1.CAR_ID = c2.GUID
         LEFT JOIN DRIVER_REGISTER d on c1.DRIVER_ID = d.GUID
     </sql>
 
     <sql id="selectCheck_Unpunch">
-        SELECT a.* FROM CHECK_RECORD a,
-        (SELECT DRIVER_ID,max(DKSJ) AS DKSJ FROM CHECK_RECORD WHERE DKSJ &lt; sysdate-2 GROUP BY DRIVER_ID) b
-        WHERE a.DRIVER_ID=b.DRIVER_ID AND a.DKSJ=b.DKSJ
+        SELECT c.*,d.GUID,d.DRIVER_JSSJ,d.DRIVER_KSSJ FROM
+        (SELECT a.* FROM CHECK_RECORD a,(SELECT DRIVER_ID,max(DKSJ) AS DKSJ FROM CHECK_RECORD WHERE DKSJ &lt; sysdate-2 GROUP BY DRIVER_ID) b
+        WHERE a.DRIVER_ID=b.DRIVER_ID AND a.DKSJ=b.DKSJ) c,CAR_RECORD d WHERE c.CAR_RECORD_ID=d.GUID AND sysdate &lt; d.DRIVER_JSSJ AND sysdate > d.DRIVER_KSSJ
     </sql>
 	
     <select id="selectList" parameterType="CHECK_RECORD" resultMap="check_recordResult">
@@ -51,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
             <if test="ZBX != null and ZBX != '' " > and ZBX like concat(concat('%',#{ZBX}),'%') </if>
             <if test="ZBY != null and ZBY != '' "> and ZBY like concat(concat('%',#{ZBY}),'%')</if>
+            <if test="CAR_RECORD_ID != null and CAR_RECORD_ID != '' "> and CAR_RECORD_ID = #{CAR_RECORD_ID}</if>
             <if test="XCZ != null"> and XCZ = #{XCZ}</if>
          </where>
     </select>
@@ -58,6 +60,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectById" parameterType="String" resultMap="check_recordResult">
         <include refid="selectCheck_record"/>
         where c1.GUID = #{GUID}
+    </select>
+
+    <select id="selectByCarRecordId" parameterType="String" resultMap="check_recordResult">
+        <include refid="selectCheck_record"/>
+        where c1.CAR_RECORD_ID = #{CAR_RECORD_ID}
     </select>
 
     <select id="selectUnpunch"  resultMap="check_recordResult">
@@ -74,7 +81,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="DKSJ != null  ">DKSJ,</if>
 			<if test="ZBX != null and ZBX != '' ">ZBX,</if>
             <if test="ZBY != null and ZBY != '' ">ZBY,</if>
-            <if test="XCZ != null and XCZ != '' ">XCZ,</if>
+            <if test="XCZ != null  ">XCZ,</if>
+            <if test="CAR_RECORD_ID != null and CAR_RECORD_ID != '' ">CAR_RECORD_ID,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="GUID != null  and GUID != ''  ">#{GUID},</if>
@@ -83,7 +91,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="DKSJ != null  ">#{DKSJ},</if>
 			<if test="ZBX != null and ZBX != '' ">#{ZBX},</if>
             <if test="ZBY != null and ZBY != '' ">#{ZBY},</if>
-            <if test="XCZ != null and XCZ != ''">#{XCZ},</if>
+            <if test="XCZ != null ">#{XCZ},</if>
+            <if test="CAR_RECORD_ID != null and CAR_RECORD_ID != ''">#{CAR_RECORD_ID},</if>
          </trim>
     </insert>
 	 
@@ -96,12 +105,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="ZBX != null and ZBX != '' ">ZBX = #{ZBX},</if>
             <if test="ZBY != null and ZBY != '' ">ZBY = #{ZBY},</if>
             <if test="XCZ != null ">XCZ = #{XCZ},</if>
+            <if test="CAR_RECORD_ID != null and CAR_RECORD_ID != '' ">CAR_RECORD_ID = #{CAR_RECORD_ID},</if>
         </trim>
         where GUID = #{GUID}
     </update>
 
 	<delete id="deleteById" parameterType="String">
         delete from CHECK_RECORD where GUID = #{GUID}
+    </delete>
+
+
+    <delete id="deleteByCarRecordId" parameterType="String">
+        delete from CHECK_RECORD where CAR_RECORD_ID = #{CAR_RECORD_ID}
     </delete>
 	
     <delete id="deleteByIds" parameterType="String">

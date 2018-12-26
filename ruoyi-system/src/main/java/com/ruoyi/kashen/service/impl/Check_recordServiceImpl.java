@@ -60,4 +60,5 @@ public class Check_recordServiceImpl implements ICheck_recordService {
     public int deleteByIds(String ids) {
         return check_recordMapper.deleteByIds(Convert.toStrArray(ids));
     }
+
 }

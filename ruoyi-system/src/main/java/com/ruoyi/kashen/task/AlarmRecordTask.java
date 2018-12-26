@@ -30,20 +30,27 @@ public class AlarmRecordTask {
     private ALARM_RECORDMapper alarm_recordMapper;
 
     @Scheduled(cron = "0/50 * *  * * ?")
-    public void work() throws InterruptedException {
+    public void work() throws Exception {
         //查询未打卡记录
         List<CHECK_RECORD> unpunch =  checkRecordMapper.selectUnpunch();
         if(unpunch != null && unpunch.size() > 0) {
-            System.out.println("每隔50秒查询一次记录----------总记录数为：" + unpunch.size() +"次");
+            System.out.println("每到50秒查询一次记录----------总记录数为：" + unpunch.size() +"次");
+
+            Thread.sleep(50000);
             for(CHECK_RECORD c : unpunch) {
                 ALARM_RECORD alarm_record = new ALARM_RECORD();
                 alarm_record.setGUID(UUID.randomUUID().toString());
-                alarm_record.setDRVIER_GUID("11");
+                alarm_record.setDRVIER_GUID(c.getCAR_RECORD_ID());
                 alarm_record.setCAR_GUID(c.getCAR_ID());
                 alarm_record.setALARM_TIME(new Date());
                 alarm_record.setALARM_ZT(0);
+                ALARM_RECORD ar =  alarm_recordMapper.selectByCarRecordId(alarm_record.getDRVIER_GUID());
+                if(ar != null && ar.getDRVIER_GUID().equals(alarm_record.getDRVIER_GUID()) ) {
 
-                //alarm_recordMapper.insertUnPunch(alarm_record);
+                } else {
+                    alarm_recordMapper.insertUnPunch(alarm_record);
+                }
+
             }
 
         }

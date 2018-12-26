@@ -18,4 +18,5 @@ public interface ICheck_recordService {
 
 
     public int deleteByIds(String ids);
+
 }

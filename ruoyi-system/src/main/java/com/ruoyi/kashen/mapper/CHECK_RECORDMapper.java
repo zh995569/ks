@@ -8,6 +8,8 @@ public interface CHECK_RECORDMapper {
 
     public CHECK_RECORD selectById(String guid);
 
+    public CHECK_RECORD selectByCarRecordId(String carRecordId);
+
 
     public List<CHECK_RECORD> selectList(CHECK_RECORD check_record);
 
@@ -20,6 +22,7 @@ public interface CHECK_RECORDMapper {
 
     public int deleteById(String guid);
 
+    public int deleteByCarRecordId(String carRecordId);
 
     public int deleteByIds(String[] guids);
 
