@@ -16,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -112,7 +116,13 @@ public class Driver_registerController extends BaseController{
     public String edit(@PathVariable("guid") String guid, ModelMap mmap)
     {
         DRIVER_REGISTER driver_register = driver_registerService.selectById(guid);
-        mmap.put("xcz",new String(driver_register.getDRIVER_XCZ()));
+        String xcz = new String(driver_register.getDRIVER_XCZ());
+        if (xcz.contains("data:image/")){
+            mmap.put("xcz","");
+        }else {
+            mmap.put("xcz","");
+        }
+
         mmap.put("driver_register", driver_register);
         return prefix + "/edit";
     }
@@ -126,6 +136,13 @@ public class Driver_registerController extends BaseController{
     @ResponseBody
     public AjaxResult editSave(DRIVER_REGISTER driver_register)
     {
+        String imgFile = "e:\\123.jpeg";//待处理的图片
+        String imgbese=getImgStr(imgFile);
+        System.out.println(imgbese);
+
+        driver_register.setDRIVER_XCZ(imgbese.getBytes());
+        driver_register.setDRIVER_RLMB(imgbese.getBytes());
+
         return toAjax(driver_registerService.update(driver_register));
     }
 
@@ -141,4 +158,28 @@ public class Driver_registerController extends BaseController{
         return toAjax(driver_registerService.deleteByIds(ids));
     }
 
+
+    /**
+           * 将图片转换成Base64编码
+           * @param imgFile 待处理图片
+           * @return
+    */
+     public static String getImgStr(String imgFile){
+             //将图片文件转化为字节数组字符串，并对其进行Base64编码处理
+             InputStream in = null;
+             byte[] data = null;
+             //读取图片字节数组
+             try
+             {
+                     in = new FileInputStream(imgFile);
+                     data = new byte[in.available()];
+                     in.read(data);
+                     in.close();
+                 }
+             catch (IOException e)
+             {
+                     e.printStackTrace();
+             }
+             return new String(Base64.encodeBase64(data));
+     }
 }
