@@ -1,5 +1,6 @@
 package com.ruoyi.kashen.domain;
 
+import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.base.BaseEntity;
 
 import java.util.Arrays;
@@ -13,14 +14,36 @@ import java.util.Date;
  * Version 1.0
  */
 public class CHECK_RECORD extends BaseEntity{
+
     private String GUID;
+
+    /** 车辆编号 */
+    @Excel(name = "车牌号码", width = 40)
     private String CAR_ID;
+
+    /** 驾驶员编号 */
+    @Excel(name = "驾驶员姓名", width = 40)
     private String DRIVER_ID;
+
+    /** 打卡时间 */
+    @Excel(name = "打卡时间", dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date DKSJ;
+
+    /** 坐标x */
+    @Excel(name = "坐标x")
     private String ZBX;
+
+    /** 坐标y */
+    @Excel(name = "坐标y")
     private String ZBY;
+
+    /** 现场照 */
     private byte[] XCZ;
+
+    /** 审批记录编号 */
+    @Excel(name = "审批记录编号", width = 40)
     private String CAR_RECORD_ID;
+
     private CAR_REGISTER car_register;
     private DRIVER_REGISTER driver_register;
 

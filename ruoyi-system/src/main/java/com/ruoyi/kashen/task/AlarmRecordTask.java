@@ -29,12 +29,12 @@ public class AlarmRecordTask {
     @Autowired
     private ALARM_RECORDMapper alarm_recordMapper;
 
-    @Scheduled(cron = "0/50 * *  * * ?")
+    @Scheduled(cron = "0 0/10 * * * ?")
     public void work() throws Exception {
         //查询未打卡记录
         List<CHECK_RECORD> unpunch =  checkRecordMapper.selectUnpunch();
         if(unpunch != null && unpunch.size() > 0) {
-            System.out.println("每到50秒查询一次记录----------总记录数为：" + unpunch.size() +"次");
+            System.out.println("每10分钟查询一次记录----------总记录数为：" + unpunch.size() +"次时间为：" + new Date());
 
             Thread.sleep(50000);
             for(CHECK_RECORD c : unpunch) {

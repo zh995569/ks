@@ -17,7 +17,7 @@ import java.util.Date;
 public class CAR_REGISTER extends BaseEntity{
     private static final long serialVersionUID = 1L;
 
-    @Excel(name = "uuid")
+    @Excel(name = "uuid", width = 40)
     private String GUID;
     @Excel(name = "大架子号")
     private String CAR_DJZH;
@@ -33,7 +33,7 @@ public class CAR_REGISTER extends BaseEntity{
     private String CAR_CLYS;
     @Excel(name = "车主姓名")
     private String CAR_CZXM;
-    @Excel(name = "车辆状态", readConverterExp = "0=在场,1=外出")
+    @Excel(name = "车辆状态", readConverterExp = "0=闲置,1=外出")
     private String CAR_CLZT;
     @Excel(name = "车主性别")
     private String CAR_CZXB;
@@ -50,9 +50,9 @@ public class CAR_REGISTER extends BaseEntity{
     @Excel(name = "登记时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date CAR_DJSJ;
-    @Excel(name = "所属警务站")
+    @Excel(name = "所属警务站", width = 30)
     private String CAR_SSJWZ;
-    @Excel(name = "所属派出所")
+    @Excel(name = "所属派出所", width = 30)
     private String CAR_SSPCS;
     @Excel(name = "所属区域")
     private String CAR_SSQY;

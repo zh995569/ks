@@ -1,5 +1,8 @@
 package com.ruoyi.kashen.domain;
 
+import com.ruoyi.common.annotation.Excel;
+import com.ruoyi.common.base.BaseEntity;
+
 import java.util.Date;
 import java.util.List;
 
@@ -10,16 +13,40 @@ import java.util.List;
  * @Date 2018/11/29 9:45
  * Version 1.0
  */
-public class CAR_RECORD {
+public class CAR_RECORD extends BaseEntity {
+    /**  */
     private String GUID;
+
+    /** 车辆编号 */
+    @Excel(name = "车牌号码", width = 40)
     private String CAR_ID;
+
+    /** 驾驶员编号 */
+    @Excel(name = "驾驶员姓名", width = 40)
     private String DRIVER_ID;
+
+    /** 外出事由 */
+    @Excel(name = "外出事由")
     private String DRIVER_WCSY;
+
+    /** 外出地点 */
+    @Excel(name = "外出地点")
     private String DRIVER_WCDD;
+
+    /** 开始时间 */
+    @Excel(name = "开始时间", dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date DRIVER_KSSJ;
+
+    /** 结束时间 */
+    @Excel(name = "结束时间", dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date DRIVER_JSSJ;
+
+    /** 审批状态 */
+    @Excel(name = "审批状态")
     private Integer DRIVER_SPZT;
+
     private CAR_REGISTER car_register;
+
     private DRIVER_REGISTER driver_register;
 
     public String getGUID() {

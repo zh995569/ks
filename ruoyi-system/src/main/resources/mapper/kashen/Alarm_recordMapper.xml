@@ -19,11 +19,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectList" parameterType="ALARM_RECORD" resultMap="alarm_recordResult">
         <include refid="selectAlarm_record"/>
         <where>  
-            <if test="GUID != null  and GUID != '' "> and GUID = #{GUID}</if>
-             <if test="DRVIER_GUID != null  and DRVIER_GUID != '' "> and DRVIER_GUID = #{DRVIER_GUID}</if>
-             <if test="CAR_GUID != null  and CAR_GUID != '' "> and CAR_GUID = #{CAR_GUID}</if>
-             <if test="ALARM_TIME != null "> and ALARM_TIME = #{ALARM_TIME}</if>
-             <if test="ALARM_ZT != null"> and ALARM_ZT = #{ALARM_ZT}</if>
+            <if test="GUID != null  and GUID != '' "> and GUID like concat(concat('%',#{GUID}),'%')</if>
+             <if test="DRVIER_GUID != null  and DRVIER_GUID != '' "> and DRVIER_GUID like concat(concat('%',#{DRVIER_GUID}),'%')</if>
+             <if test="CAR_GUID != null  and CAR_GUID != '' "> and CAR_GUID like concat(concat('%',#{CAR_GUID}),'%')</if>
+             <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and ALARM_TIME &gt;= to_date(#{params.beginTime},'yyyy-MM-dd HH24:mi:ss')
+             </if>
+             <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and ALARM_TIME &lt;= to_date(#{params.endTime},'yyyy-MM-dd HH24:mi:ss')
+             </if>
+             <if test="ALARM_ZT != null"> and ALARM_ZT like concat(concat('%',#{ALARM_ZT}),'%')</if>
          </where>
     </select>
     

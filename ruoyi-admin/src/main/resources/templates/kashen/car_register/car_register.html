@@ -35,7 +35,7 @@
 								车辆状态：<!--<input type="text" name="CAR_CLZT"/>-->
 								<select name="CAR_CLZT" class="m-b" lay-verify="required">
 									<option value=""></option>
-									<option value="0">在场</option>
+									<option value="0">闲置</option>
 									<option value="1">外出作业</option>
 								</select>
 							</li>
@@ -137,7 +137,7 @@
 					title : '车辆状态',
                     formatter: function(value, row, index) {
 					    if (value=="0"){
-					        return "在场";
+					        return "闲置";
 						}
 						if (value=="1"){
 					        return "外出作业";
