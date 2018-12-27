@@ -16,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -112,7 +116,13 @@ public class Driver_registerController extends BaseController{
     public String edit(@PathVariable("guid") String guid, ModelMap mmap)
     {
         DRIVER_REGISTER driver_register = driver_registerService.selectById(guid);
-        mmap.put("xcz",new String(driver_register.getDRIVER_XCZ()));
+        String xcz = new String(driver_register.getDRIVER_XCZ());
+        if (xcz.contains("data:image/")){
+            mmap.put("xcz","");
+        }else {
+            mmap.put("xcz","");
+        }
+
         mmap.put("driver_register", driver_register);
         return prefix + "/edit";
     }
@@ -126,6 +136,13 @@ public class Driver_registerController extends BaseController{
     @ResponseBody
     public AjaxResult editSave(DRIVER_REGISTER driver_register)
     {
+        /*String imgFile = "e:\\123.jpeg";//待处理的图片
+        String imgbese=getImgStr(imgFile);
+        System.out.println(imgbese);
+
+        driver_register.setDRIVER_XCZ(imgbese.getBytes());
+        driver_register.setDRIVER_RLMB(imgbese.getBytes());*/
+
         return toAjax(driver_registerService.update(driver_register));
     }
 

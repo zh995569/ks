@@ -82,9 +82,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 	 
     <update id="update" parameterType="DRIVER_REGISTER">
-        update check_record
+        update DRIVER_REGISTER
         <trim prefix="SET" suffixOverrides=",">
-            <if test="GUID != null  and GUID != ''  ">GUID = #{GUID},</if>
+            <!--<if test="GUID != null  and GUID != ''  ">GUID = #{GUID},</if>-->
             <if test="DRIVER_SFZH != null  and DRIVER_SFZH != ''  ">DRIVER_SFZH = #{DRIVER_SFZH},</if>
             <if test="DRIVER_XM != null  and DRIVER_XM != ''  ">DRIVER_XM = #{DRIVER_XM},</if>
             <if test="DRIVER_XB != null  and DRIVER_XB != ''  ">DRIVER_XB = #{DRIVER_XB},</if>

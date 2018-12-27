@@ -26,7 +26,7 @@ public class DRIVER_REGISTER extends BaseEntity{
     private String DRIVER_JSZBH;
     private String APP_PWD;
     private byte[] DRIVER_XCZ;//现场照
-    private Object DRIVER_RLMB;//人脸模板
+    private byte[] DRIVER_RLMB;//人脸模板
     private Integer DRIVER_SCZT;//审查状态
 
     public static long getSerialVersionUID() {
@@ -113,11 +113,11 @@ public class DRIVER_REGISTER extends BaseEntity{
         this.DRIVER_XCZ = DRIVER_XCZ;
     }
 
-    public Object getDRIVER_RLMB() {
+    public byte[] getDRIVER_RLMB() {
         return DRIVER_RLMB;
     }
 
-    public void setDRIVER_RLMB(Object DRIVER_RLMB) {
+    public void setDRIVER_RLMB(byte[] DRIVER_RLMB) {
         this.DRIVER_RLMB = DRIVER_RLMB;
     }
 
@@ -131,6 +131,6 @@ public class DRIVER_REGISTER extends BaseEntity{
 
     @Override
     public String toString() {
-        return "DRIVER_REGISTER{" + "GUID='" + GUID + '\'' + ", DRIVER_SFZH='" + DRIVER_SFZH + '\'' + ", DRIVER_XM='" + DRIVER_XM + '\'' + ", DRIVER_XB='" + DRIVER_XB + '\'' + ", DRIVER_JG='" + DRIVER_JG + '\'' + ", DRIVER_ZZ='" + DRIVER_ZZ + '\'' + ", DRIVER_MZ='" + DRIVER_MZ + '\'' + ", DRIVER_JSZBH='" + DRIVER_JSZBH + '\'' + ", APP_PWD='" + APP_PWD + '\'' + ", DRIVER_XCZ=" + Arrays.toString(DRIVER_XCZ) + ", DRIVER_RLMB=" + DRIVER_RLMB + ", DRIVER_SCZT=" + DRIVER_SCZT + '}';
+        return "DRIVER_REGISTER{" + "GUID='" + GUID + '\'' + ", DRIVER_SFZH='" + DRIVER_SFZH + '\'' + ", DRIVER_XM='" + DRIVER_XM + '\'' + ", DRIVER_XB='" + DRIVER_XB + '\'' + ", DRIVER_JG='" + DRIVER_JG + '\'' + ", DRIVER_ZZ='" + DRIVER_ZZ + '\'' + ", DRIVER_MZ='" + DRIVER_MZ + '\'' + ", DRIVER_JSZBH='" + DRIVER_JSZBH + '\'' + ", APP_PWD='" + APP_PWD + '\'' + ", DRIVER_XCZ=" + Arrays.toString(DRIVER_XCZ) + ", DRIVER_RLMB=" + Arrays.toString(DRIVER_RLMB) + ", DRIVER_SCZT=" + DRIVER_SCZT + '}';
     }
 }
