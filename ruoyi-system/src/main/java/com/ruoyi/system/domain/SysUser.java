@@ -70,6 +70,7 @@ public class SysUser extends BaseEntity
     private Date loginDate;
 
     /** 部门对象 */
+    @Excel(name = "部门",targetAttr = "deptName")
     private SysDept dept;
 
     private List<SysRole> roles;

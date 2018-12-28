@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +42,7 @@ import com.ruoyi.common.config.Global;
 
 /**
  * Excel相关处理
- * 
+ *
  * @author ruoyi
  */
 public class ExcelUtil<T>
@@ -56,7 +58,7 @@ public class ExcelUtil<T>
 
     /**
      * 对excel表单默认第一个索引名转换成list
-     * 
+     *
      * @param input 输入流
      * @return 转换后集合
      */
@@ -67,7 +69,7 @@ public class ExcelUtil<T>
 
     /**
      * 对excel表单指定表格索引名转换成list
-     * 
+     *
      * @param sheetName 表格索引名
      * @param input 输入流
      * @return 转换后集合
@@ -178,7 +180,7 @@ public class ExcelUtil<T>
                             field.set(entity, Character.valueOf(c.charAt(0)));
                         }
                     }
-                    else if (java.util.Date.class == fieldType)
+                    else if (Date.class == fieldType)
                     {
                         if (cell.getCellTypeEnum() == CellType.NUMERIC)
                         {
@@ -208,7 +210,7 @@ public class ExcelUtil<T>
 
     /**
      * 对list数据源将其里面的数据导入到excel表单
-     * 
+     *
      * @param list 导出数据集合
      * @param sheetName 工作表的名称
      * @return 结果
@@ -343,22 +345,27 @@ public class ExcelUtil<T>
                                     continue;
                                 }
 
+                                //判断是否有targetAttr注解,有的话表示需要取对象中的某个字段的属性
+                                Object value = getTargetValue(vo, field,attr);
+
                                 String dateFormat = attr.dateFormat();
                                 String readConverterExp = attr.readConverterExp();
                                 if (StringUtils.isNotEmpty(dateFormat))
                                 {
-                                    cell.setCellValue(DateUtils.parseDateToStr(dateFormat, (Date) field.get(vo)));
+                                    cell.setCellValue(DateUtils.parseDateToStr(dateFormat, (Date) value));
                                 }
                                 else if (StringUtils.isNotEmpty(readConverterExp))
                                 {
-                                    cell.setCellValue(convertByExp(String.valueOf(field.get(vo)), readConverterExp));
+                                    cell.setCellValue(convertByExp(String.valueOf(value), readConverterExp));
                                 }
                                 else
                                 {
                                     cell.setCellType(CellType.STRING);
                                     // 如果数据存在就填入,不存在填入空格.
-                                    cell.setCellValue(StringUtils.isNull(field.get(vo)) ? attr.defaultValue() : field.get(vo) + attr.suffix());
+
+                                    cell.setCellValue(StringUtils.isNull(value) ? attr.defaultValue() : value + attr.suffix());
                                 }
+
                             }
                         }
                         catch (Exception e)
@@ -405,9 +412,10 @@ public class ExcelUtil<T>
         }
     }
 
+
     /**
      * 设置单元格上提示
-     * 
+     *
      * @param sheet 要设置的sheet.
      * @param promptTitle 标题
      * @param promptContent 内容
@@ -433,7 +441,7 @@ public class ExcelUtil<T>
 
     /**
      * 设置某些列的值只能输入预制的数据,显示下拉框.
-     * 
+     *
      * @param sheet 要设置的sheet.
      * @param textlist 下拉框显示的内容
      * @param firstRow 开始行
@@ -454,10 +462,10 @@ public class ExcelUtil<T>
         sheet.addValidationData(dataValidationList);
         return sheet;
     }
-    
+
     /**
      * 解析导出值 0=男,1=女,2=未知
-     * 
+     *
      * @param propertyValue 参数值
      * @param converterExp 翻译注解
      * @return 解析后值
@@ -495,7 +503,7 @@ public class ExcelUtil<T>
 
     /**
      * 获取下载路径
-     * 
+     *
      * @param filename 文件名称
      */
     public String getAbsoluteFile(String filename)
@@ -507,5 +515,45 @@ public class ExcelUtil<T>
             desc.getParentFile().mkdirs();
         }
         return downloadPath;
+    }
+
+
+    /**
+     * 获取bean中的属性值
+     * @param vo 实体对象
+     * @param field 字段
+     * @param excel 注解
+     * @return 最终的属性值
+     * @throws Exception
+     */
+    private Object getTargetValue(T vo, Field field, Excel excel) throws Exception {
+        Object o = field.get(vo);
+        String target = excel.targetAttr();
+        if(target.indexOf(".") > -1){
+            String[] targets = target.split("[.]");
+            for (String name : targets) {
+                o = getValue(o, name);
+            }
+        }else{
+            o = getValue(o, target);
+        }
+        return o;
+    }
+
+    /**
+     * 以类的属性的get方法方法形式获取值
+     * @param o
+     * @param name
+     * @return value
+     * @throws Exception
+     */
+    private Object getValue(Object o, String name) throws Exception {
+        if (StringUtils.isNotEmpty(name)) {
+            Class<?> clazz = o.getClass();
+            String methodName = "get" + name.substring(0, 1).toUpperCase() + name.substring(1);
+            Method method = clazz.getMethod(methodName);
+            o = method.invoke(o);
+        }
+        return o;
     }
 }

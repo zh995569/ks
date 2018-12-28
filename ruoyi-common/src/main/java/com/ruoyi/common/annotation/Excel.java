@@ -15,6 +15,12 @@ import java.lang.annotation.Target;
 public @interface Excel
 {
     /**
+     * 另一个类中的属性名称,支持多级获取,以小数点隔开.如dept.role.roleName;
+     * @return
+     */
+    public String targetAttr() default "";
+
+    /**
      * 导出到Excel中的名字.
      */
     public String name();

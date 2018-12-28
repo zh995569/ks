@@ -42,11 +42,13 @@ public class CAR_RECORD extends BaseEntity {
     private Date DRIVER_JSSJ;
 
     /** 审批状态 */
-    @Excel(name = "审批状态")
+    @Excel(name = "审批状态", readConverterExp="0=未审批,1=已审批")
     private Integer DRIVER_SPZT;
 
+    @Excel(name = "车牌号码", targetAttr="CAR_CPHM")
     private CAR_REGISTER car_register;
 
+    @Excel(name = "驾驶员姓名", targetAttr = "DRIVER_XM")
     private DRIVER_REGISTER driver_register;
 
     public String getGUID() {

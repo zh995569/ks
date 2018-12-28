@@ -100,7 +100,7 @@ public class Driver_registerController extends BaseController{
 
 
         driver_register.setGUID(this.get32UUID());
-        //xcz = xcz.substring(22);//去掉前面一段data:image/png;base64,
+        xcz = xcz.substring(22);//去掉前缀一段data:image/png;base64,
         driver_register.setDRIVER_XCZ(xcz.getBytes());
 
         //car_register.setCAR_DJSJ(car_register.getCAR_DJSJ());
@@ -117,12 +117,8 @@ public class Driver_registerController extends BaseController{
     {
         DRIVER_REGISTER driver_register = driver_registerService.selectById(guid);
         String xcz = new String(driver_register.getDRIVER_XCZ());
-        if (xcz.contains("data:image/")){
-            mmap.put("xcz","");
-        }else {
-            mmap.put("xcz","");
-        }
 
+        mmap.put("xcz","data:image/jpg;base64,"+xcz);
         mmap.put("driver_register", driver_register);
         return prefix + "/edit";
     }
@@ -136,13 +132,6 @@ public class Driver_registerController extends BaseController{
     @ResponseBody
     public AjaxResult editSave(DRIVER_REGISTER driver_register)
     {
-        /*String imgFile = "e:\\123.jpeg";//待处理的图片
-        String imgbese=getImgStr(imgFile);
-        System.out.println(imgbese);
-
-        driver_register.setDRIVER_XCZ(imgbese.getBytes());
-        driver_register.setDRIVER_RLMB(imgbese.getBytes());*/
-
         return toAjax(driver_registerService.update(driver_register));
     }
 
