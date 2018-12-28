@@ -17,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 车辆
@@ -27,7 +29,7 @@ import java.util.List;
  * Version 1.0
  */
 @Controller
-@RequestMapping("kashen/car_register")
+@RequestMapping("/kashen/car_register")
 public class Car_registerController extends BaseController{
     private String prefix = "kashen/car_register";
 
@@ -59,6 +61,19 @@ public class Car_registerController extends BaseController{
         }
         List<CAR_REGISTER> list = car_registerService.selectList(car_register);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询总数量
+     */
+    @RequestMapping("/total")
+    @ResponseBody
+    public Map<String, Object> total()
+    {
+        Map<String,Object> map = new HashMap<>();
+        int total = car_registerService.total();
+        map.put("total",total);
+        return map;
     }
 
 

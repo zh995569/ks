@@ -19,4 +19,6 @@ public interface ICar_registerService {
 
 
     public int deleteByIds(String ids);
+
+    public int total();
 }

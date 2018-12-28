@@ -153,5 +153,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{GUID}
         </foreach>
     </delete>
-    
+
+    <select id="total" resultType="Integer">
+        SELECT count(*) FROM CAR_REGISTER
+    </select>
 </mapper>

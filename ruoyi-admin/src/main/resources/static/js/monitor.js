@@ -16,9 +16,9 @@ function drawLayer02Label(canvasObj,text,textBeginX,lineEndX){
 	ctx.strokeStyle = colorValue;
 	ctx.stroke();
 
-	ctx.font='12px Georgia';
+	ctx.font='14px Georgia';
 	ctx.fillStyle = colorValue;
-	ctx.fillText(text,textBeginX,100);
+	ctx.fillText(text,textBeginX,93);
 }
 
 //占比
@@ -57,7 +57,7 @@ function drawLegend(pointColor,pointY,text){
 }
 
 
-//存储
+//z占比图
 function renderLayer03Right(){
 	drawLayer03Right($("#layer03_right_chart01 canvas").get(0),"#027825",0.82);
 	drawLayer03Right($("#layer03_right_chart02 canvas").get(0),"#006DD6",0.67);

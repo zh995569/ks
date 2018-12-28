@@ -33,12 +33,21 @@
     <script th:src="@{/js/monitor.js}"></script>
     <script type="text/javascript">
         $(function(){
+            $.ajax({
+                type:"post",
+                url:"/kashen/car_register/total",
+                data:"",
+                dataType:"json",
+                success:function (data) {
+                    $("#car_registerTotal").html(data.total);
+                }
+            });
             drawLayer02Label($("#layer02_01 canvas").get(0),"总车辆数量",60,200);
             drawLayer02Label($("#layer02_02 canvas").get(0),"总驾驶员数量",60,300);
             drawLayer02Label($("#layer02_03 canvas").get(0),"外出作业车辆数",60,300);
             drawLayer02Label($("#layer02_04 canvas").get(0),"总车辆使用记录数",60,300);
             drawLayer02Label($("#layer02_05 canvas").get(0),"今日用车次数",60,300);
-            drawLayer02Label($("#layer02_06 canvas").get(0),"异常预警未处理数量",60,300);
+            drawLayer02Label($("#layer02_06 canvas").get(0),"异常预警未处理数",60,300);
 
             renderLegend();
 
@@ -62,21 +71,21 @@
 <div class="main">
 
     <div id="layer02" class="layer" style="height:15%;">
-        <div id="layer02_01" style="width:18%;">
+        <div id="layer02_01" style="width:16%;">
             <div class="layer02-data">
-                <span style="font-size:26px;">100</span>
+                <span id="car_registerTotal" style="font-size:26px;"></span>
                 <span style="font-size:16px;">台</span>
             </div>
             <canvas width="180" height="100"></canvas>
         </div>
-        <div id="layer02_02" style="width:18%;">
+        <div id="layer02_02" style="width:16%;">
             <div class="layer02-data">
                 <span style="font-size:26px;">50</span>
                 <span style="font-size:16px;">个</span>
             </div>
             <canvas width="180" height="100"></canvas>
         </div>
-        <div id="layer02_03" style="width:18%;">
+        <div id="layer02_03" style="width:16%;">
             <div class="layer02-data">
                 <span style="font-size:26px;">66</span>
                 <span style="font-size:16px;">台</span>

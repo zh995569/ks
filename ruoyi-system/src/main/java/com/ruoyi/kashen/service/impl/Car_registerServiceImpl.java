@@ -48,4 +48,9 @@ public class Car_registerServiceImpl implements ICar_registerService{
         //参数是数组，将ids用逗号分隔成数组
         return car_registerMapper.deleteByIds(Convert.toStrArray(ids));
     }
+
+    @Override
+    public int total(){
+        return car_registerMapper.total();
+    }
 }
