@@ -1,5 +1,6 @@
 package com.ruoyi.kashen.domain;
 
+import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.base.BaseEntity;
 import oracle.sql.BLOB;
 
@@ -14,20 +15,54 @@ import java.util.Arrays;
  * Version 1.0
  */
 public class DRIVER_REGISTER extends BaseEntity{
+
     private static final long serialVersionUID = 1L;
 
+    /** 驾驶员编号 */
+    @Excel(name = "驾驶员编号", width = 40)
     private String GUID;
+
+    /** 驾驶员身份证 */
+    @Excel(name = "驾驶员身份证")
     private String DRIVER_SFZH;
+
+    /** 姓名 */
+    @Excel(name = "驾驶员姓名")
     private String DRIVER_XM;
+
+    /** 性别 */
+    @Excel(name = "性别")
     private String DRIVER_XB;
+
+    /** 籍贯 */
+    @Excel(name = "籍贯")
     private String DRIVER_JG;
+
+    /** 住址 */
+    @Excel(name = "住址")
     private String DRIVER_ZZ;
+
+    /** 民族 */
+    @Excel(name = "民族")
     private String DRIVER_MZ;
+
+    /** 驾驶证编号 */
+    @Excel(name = "驾驶证编号")
     private String DRIVER_JSZBH;
+
+    /** app登录密码 */
+    @Excel(name = "app登录密码")
     private String APP_PWD;
-    private byte[] DRIVER_XCZ;//现场照
-    private byte[] DRIVER_RLMB;//人脸模板
-    private Integer DRIVER_SCZT;//审查状态
+
+    /** 现场照 */
+    private byte[] DRIVER_XCZ;
+
+    /** 人脸模板 */
+    private byte[] DRIVER_RLMB;
+
+    /** 人员审查状态 */
+    @Excel(name = "人员审查状态", readConverterExp = "0=否,1=是")
+    private Integer DRIVER_SCZT;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

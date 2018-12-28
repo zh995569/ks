@@ -15,14 +15,16 @@ import java.util.Date;
  */
 public class CHECK_RECORD extends BaseEntity{
 
+    private static final long serialVersionUID = 1L;
+
     private String GUID;
 
     /** 车辆编号 */
-    @Excel(name = "车牌号码", width = 40)
+    @Excel(name = "车辆编号", width = 40)
     private String CAR_ID;
 
     /** 驾驶员编号 */
-    @Excel(name = "驾驶员姓名", width = 40)
+    @Excel(name = "驾驶员编号", width = 40)
     private String DRIVER_ID;
 
     /** 打卡时间 */
@@ -44,7 +46,10 @@ public class CHECK_RECORD extends BaseEntity{
     @Excel(name = "审批记录编号", width = 40)
     private String CAR_RECORD_ID;
 
+    @Excel(name = "车牌号码", targetAttr="CAR_CPHM")
     private CAR_REGISTER car_register;
+
+    @Excel(name = "驾驶员姓名", targetAttr = "DRIVER_XM")
     private DRIVER_REGISTER driver_register;
 
     public String getGUID() {

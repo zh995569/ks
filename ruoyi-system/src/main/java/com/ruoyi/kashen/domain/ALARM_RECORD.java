@@ -14,6 +14,8 @@ import java.util.Date;
  */
 public class ALARM_RECORD extends BaseEntity{
 
+    private static final long serialVersionUID = 1L;
+
     /** 报警记录编号 */
     @Excel(name = "报警记录编号", width = 40)
     private String GUID;
@@ -31,7 +33,7 @@ public class ALARM_RECORD extends BaseEntity{
     private Date ALARM_TIME;
 
     /** 处理状态 */
-    @Excel(name = "处理状态")
+    @Excel(name = "处理状态",readConverterExp = "0=否,1=是")
     private Integer ALARM_ZT;
 
     public String getGUID() {

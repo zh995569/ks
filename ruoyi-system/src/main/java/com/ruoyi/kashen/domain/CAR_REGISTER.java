@@ -15,9 +15,10 @@ import java.util.Date;
  * Version 1.0
  */
 public class CAR_REGISTER extends BaseEntity{
+
     private static final long serialVersionUID = 1L;
 
-    @Excel(name = "uuid", width = 40)
+    @Excel(name = "车辆编号", width = 40)
     private String GUID;
     @Excel(name = "大架子号")
     private String CAR_DJZH;

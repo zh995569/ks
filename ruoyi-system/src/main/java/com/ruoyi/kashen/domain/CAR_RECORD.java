@@ -14,15 +14,17 @@ import java.util.List;
  * Version 1.0
  */
 public class CAR_RECORD extends BaseEntity {
-    /**  */
+
+    private static final long serialVersionUID = 1L;
+    /** 唯一识别码 */
     private String GUID;
 
     /** 车辆编号 */
-    @Excel(name = "车牌号码", width = 40)
+    @Excel(name = "车俩编号", width = 40)
     private String CAR_ID;
 
     /** 驾驶员编号 */
-    @Excel(name = "驾驶员姓名", width = 40)
+    @Excel(name = "驾驶员编号", width = 40)
     private String DRIVER_ID;
 
     /** 外出事由 */
