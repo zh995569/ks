@@ -34,6 +34,7 @@
     <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
     <script type="text/javascript">
         $(function(){
+            //总车辆数量
             $.ajax({
                 type:"post",
                 url:ctx+"kashen/car_register/total",
@@ -43,6 +44,7 @@
                     $("#car_registerTotal").html(data.total);
                 }
             });
+            //驾驶员总数量
             $.ajax({
                 type:"post",
                 url:ctx+"kashen/driver_register/total",
@@ -50,6 +52,26 @@
                 dataType:"json",
                 success:function (data) {
                     $("#driver_registerTotal").html(data.total);
+                }
+            });
+            //外出作业车辆数量
+            $.ajax({
+                type:"post",
+                url:ctx+"kashen/car_register/total",
+                data:"{CAR_CLZT:1}",
+                dataType:"json",
+                success:function (data) {
+                    $("#car_registerTotal").html(data.total);
+                }
+            });
+            //总车辆使用记录数
+            $.ajax({
+                type:"post",
+                url:ctx+"kashen/car_record/total",
+                data:"{DRIVER_SPZT:1}",
+                dataType:"json",
+                success:function (data) {
+                    $("#carUseNum").html(data.total);
                 }
             });
             drawLayer02Label($("#layer02_01 canvas").get(0),"总车辆数量",60,200);
@@ -97,14 +119,14 @@
         </div>
         <div id="layer02_03" style="width:16%;">
             <div class="layer02-data">
-                <span style="font-size:26px;">66</span>
+                <span id="CAR_CLZT" style="font-size:26px;">11</span>
                 <span style="font-size:16px;">台</span>
             </div>
             <canvas width="180" height="100"></canvas>
         </div>
         <div id="layer02_04" style="width:16%;">
             <div class="layer02-data">
-                <span style="font-size:26px;">1651</span>
+                <span id="carUseNum" style="font-size:26px;"></span>
                 <span style="font-size:16px;">次</span>
             </div>
             <canvas width="180" height="100"></canvas>

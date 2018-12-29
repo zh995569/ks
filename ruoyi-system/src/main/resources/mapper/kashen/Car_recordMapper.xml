@@ -96,5 +96,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{GUID}
         </foreach>
     </delete>
+
+    <select id="total" parameterType="CAR_RECORD" resultType="Integer">
+        SELECT COUNT(*) FROM CAR_RECORD WHERE 1=1
+        <if test="DRIVER_SPZT != null">AND DRIVER_SPZT = #{DRIVER_SPZT}</if>
+    </select>
     
 </mapper>

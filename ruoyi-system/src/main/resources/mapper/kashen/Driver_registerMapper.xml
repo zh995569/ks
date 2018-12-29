@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <select id="total" resultType="Integer">
+    <select id="total" parameterType="DRIVER_REGISTER" resultType="Integer">
         SELECT count(*) FROM DRIVER_REGISTER WHERE 1=1
         <if test="DRIVER_SCZT!=null">AND DRIVER_SCZT = #{DRIVER_SCZT}</if>
     </select>

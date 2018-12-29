@@ -22,4 +22,6 @@ public interface ICar_recordService {
 
 
     public int deleteByIds(String ids);
+
+    public int total(CAR_RECORD car_record);
 }

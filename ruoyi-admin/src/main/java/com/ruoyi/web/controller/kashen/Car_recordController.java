@@ -18,7 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 车辆外出审批登记
@@ -135,5 +137,18 @@ public class Car_recordController extends BaseController{
     public AjaxResult remove(String ids)
     {
         return toAjax(car_recordService.deleteByIds(ids));
+    }
+
+    /**
+     * 查询总数量
+     */
+    @RequestMapping("/total")
+    @ResponseBody
+    public Map<String, Object> total(CAR_RECORD car_record)
+    {
+        Map<String,Object> map = new HashMap<>();
+        int total = car_recordService.total(car_record);
+        map.put("total",total);
+        return map;
     }
 }

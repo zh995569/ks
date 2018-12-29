@@ -154,7 +154,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <select id="total" resultType="Integer">
-        SELECT count(*) FROM CAR_REGISTER
+    <select id="total" parameterType="CAR_REGISTER" resultType="Integer">
+        SELECT count(*) FROM CAR_REGISTER WHERE 1=1
+        <if test="CAR_CLZT!=null and CAR_CLZT!='' ">AND CAR_CLZT = #{CAR_CLZT}</if>
     </select>
 </mapper>

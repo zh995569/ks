@@ -68,10 +68,10 @@ public class Car_registerController extends BaseController{
      */
     @RequestMapping("/total")
     @ResponseBody
-    public Map<String, Object> total()
+    public Map<String, Object> total(CAR_REGISTER car_register)
     {
         Map<String,Object> map = new HashMap<>();
-        int total = car_registerService.total();
+        int total = car_registerService.total(car_register);
         map.put("total",total);
         return map;
     }

@@ -97,12 +97,10 @@ public class Driver_registerController extends BaseController{
     @ResponseBody
     public AjaxResult addSave(@RequestParam("xcz") String  xcz, DRIVER_REGISTER driver_register)
     {
-        System.out.println("------------");
-        //String s = xcz.substring()
-
 
         driver_register.setGUID(this.get32UUID());
-        xcz = xcz.substring(22);//去掉前缀一段data:image/png;base64,
+        if(xcz!=null && xcz!="")
+            xcz = xcz.substring(22);//去掉前缀一段data:image/png;base64,
         driver_register.setDRIVER_XCZ(xcz.getBytes());
 
         //car_register.setCAR_DJSJ(car_register.getCAR_DJSJ());
@@ -118,8 +116,9 @@ public class Driver_registerController extends BaseController{
     public String edit(@PathVariable("guid") String guid, ModelMap mmap)
     {
         DRIVER_REGISTER driver_register = driver_registerService.selectById(guid);
-        String xcz = new String(driver_register.getDRIVER_XCZ());
-
+        String xcz = null;
+        if(driver_register.getDRIVER_XCZ()!=null)
+            xcz = new String(driver_register.getDRIVER_XCZ());
         mmap.put("xcz","data:image/jpg;base64,"+xcz);
         mmap.put("driver_register", driver_register);
         return prefix + "/edit";

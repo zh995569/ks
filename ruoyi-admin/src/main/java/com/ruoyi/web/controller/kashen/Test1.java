@@ -39,9 +39,12 @@ public class Test1 {
         /*String s = "dfg55erge5";
         System.out.println(s.contains("55"));*/
 
-        String path = "e:\\123.jpeg";
+        /*String path = "e:\\123.jpeg";
         String base64 = ZUtil.GetImageStr(path);
-        System.out.println(base64);
+        System.out.println(base64);*/
+        String s = "";
+        byte[] b = s.getBytes();
+        System.out.println(b);
     }
 
     /**

@@ -97,4 +97,10 @@ public class Car_recordServiceImpl implements ICar_recordService{
         }
         return countNum;
     }
+
+    @Override
+    public int total(CAR_RECORD car_record) {
+        return car_recordMapper.total(car_record);
+    }
+
 }

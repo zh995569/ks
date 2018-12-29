@@ -27,5 +27,5 @@ public interface CAR_REGISTERMapper {
 
     public int deleteByIds(String[] guids);
 
-    public int total();
+    public int total(CAR_REGISTER car_register);
 }

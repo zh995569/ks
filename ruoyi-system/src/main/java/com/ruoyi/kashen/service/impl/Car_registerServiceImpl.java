@@ -50,7 +50,7 @@ public class Car_registerServiceImpl implements ICar_registerService{
     }
 
     @Override
-    public int total(){
-        return car_registerMapper.total();
+    public int total(CAR_REGISTER car_register){
+        return car_registerMapper.total(car_register);
     }
 }
