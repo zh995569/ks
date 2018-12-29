@@ -60,8 +60,8 @@ public class DRIVER_REGISTER extends BaseEntity{
     /** 人脸模板 */
     private byte[] DRIVER_RLMB;
 
-    /** 人员审查状态 */
-    @Excel(name = "人员审查状态", readConverterExp = "0=否,1=是")
+    /** 审查状态 */
+    @Excel(name = "审查状态", readConverterExp = "0=否,1=是")
     private Integer DRIVER_SCZT;
 
     public static long getSerialVersionUID() {

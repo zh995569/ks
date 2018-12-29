@@ -121,16 +121,16 @@
 					title : '车牌号码'
 				},
 				{
+					field : 'car_CZXM',
+					title : '车主姓名'
+				},
+				{
 					field : 'car_JDCBH',
 					title : '机动车编号'
 				},
 				{
 					field : 'car_CLXH',
 					title : '车辆型号'
-				},
-				{
-					field : 'car_CZXM',
-					title : '车主姓名'
 				},
 				{
 					field : 'car_CLZT',
@@ -147,15 +147,18 @@
 				{
 					field : 'car_SFSC',
 					title : '审查状态',
+					sortable: false,
+					align:"center",
 					formatter: function(value, row, index) {
 						if (value=="0"){
-							return "未审查";
+							return "<span class='badge badge-danger'>" + "未审查" + "</span>";
 						}
 						if (value=="1"){
-							return "已审查";
+							return "<span class='badge badge-primary'>" + "已审查" + "</span>";
 						}
 					}
 				},
+
 		        {
 		            title: '操作',
 		            align: 'center',
