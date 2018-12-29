@@ -124,12 +124,13 @@
 					field : 'driver_SCZT',
 					title : '人员审查状态',
 					sortable: false,
+                    align:"center",
                     formatter: function(value, row, index) {
                         if (value=="0"){
-                            return "未审查";
+                            return "<span class='badge badge-danger'>" + "未审查" + "</span>";
                         }
                         if (value=="1"){
-                            return "审查";
+                            return "<span class='badge badge-primary'>" + "已审查" + "</span>";
                         }
                     }
 				},

@@ -27,4 +27,6 @@ public interface DRIVER_REGISTERMapper {
 
 
     public int deleteByIds(String[] guids);
+
+    public int total(DRIVER_REGISTER driver_register);
 }

@@ -43,6 +43,15 @@
                     $("#car_registerTotal").html(data.total);
                 }
             });
+            $.ajax({
+                type:"post",
+                url:ctx+"kashen/driver_register/total",
+                data:"",
+                dataType:"json",
+                success:function (data) {
+                    $("#driver_registerTotal").html(data.total);
+                }
+            });
             drawLayer02Label($("#layer02_01 canvas").get(0),"总车辆数量",60,200);
             drawLayer02Label($("#layer02_02 canvas").get(0),"总驾驶员数量",60,300);
             drawLayer02Label($("#layer02_03 canvas").get(0),"外出作业车辆数",60,300);
@@ -81,7 +90,7 @@
         </div>
         <div id="layer02_02" style="width:16%;">
             <div class="layer02-data">
-                <span style="font-size:26px;">50</span>
+                <span id="driver_registerTotal" style="font-size:26px;"></span>
                 <span style="font-size:16px;">个</span>
             </div>
             <canvas width="180" height="100"></canvas>

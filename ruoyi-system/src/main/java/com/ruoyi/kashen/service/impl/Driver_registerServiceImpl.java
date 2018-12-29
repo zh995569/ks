@@ -45,4 +45,9 @@ public class Driver_registerServiceImpl implements IDriver_registerService{
         //参数是数组，将ids用逗号分隔成数组
         return driver_registerMapper.deleteByIds(Convert.toStrArray(ids));
     }
+
+    @Override
+    public int total(DRIVER_REGISTER driver_register){
+        return driver_registerMapper.total(driver_register);
+    }
 }

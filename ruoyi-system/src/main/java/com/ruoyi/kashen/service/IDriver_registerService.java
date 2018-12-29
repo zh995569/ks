@@ -22,4 +22,6 @@ public interface IDriver_registerService {
 
 
     public int deleteByIds(String ids);
+
+    public int total(DRIVER_REGISTER driver_register);
 }

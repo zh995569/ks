@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName Driver_register
@@ -147,4 +149,16 @@ public class Driver_registerController extends BaseController{
         return toAjax(driver_registerService.deleteByIds(ids));
     }
 
+    /**
+     * 查询总数量
+     */
+    @RequestMapping("/total")
+    @ResponseBody
+    public Map<String, Object> total(DRIVER_REGISTER driver_register)
+    {
+        Map<String,Object> map = new HashMap<>();
+        int total = driver_registerService.total(driver_register);
+        map.put("total",total);
+        return map;
+    }
 }
