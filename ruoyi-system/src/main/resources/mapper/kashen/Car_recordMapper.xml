@@ -81,7 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="DRIVER_WCDD != null  and DRIVER_WCDD != ''  ">DRIVER_WCDD = #{DRIVER_WCDD},</if>
             <if test="DRIVER_KSSJ != null">DRIVER_KSSJ = #{DRIVER_KSSJ},</if>
             <if test="DRIVER_JSSJ != null">DRIVER_JSSJ = #{DRIVER_JSSJ},</if>
-            <if test="DRIVER_SPZT != null">DRIVER_SPZT = #{DRIVER_SPZT},</if>
+            <!--<if test="DRIVER_SPZT != null">DRIVER_SPZT = #{DRIVER_SPZT},</if>-->
         </trim>
         where GUID = #{GUID}
     </update>
@@ -101,5 +101,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT COUNT(*) FROM CAR_RECORD WHERE 1=1
         <if test="DRIVER_SPZT != null">AND DRIVER_SPZT = #{DRIVER_SPZT}</if>
     </select>
+
+    <update id="approval" parameterType="String">
+        update CAR_RECORD SET DRIVER_SPZT = 1
+        where GUID = #{GUID}
+    </update>
     
 </mapper>

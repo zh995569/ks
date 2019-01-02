@@ -103,4 +103,9 @@ public class Car_recordServiceImpl implements ICar_recordService{
         return car_recordMapper.total(car_record);
     }
 
+    @Override
+    public int approval(String guid) {
+        return car_recordMapper.approval(guid);
+    }
+
 }

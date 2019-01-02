@@ -104,19 +104,58 @@
 					field : 'driver_JSSJ',
 					title : '结束时间'
 				},
+				{
+					field : 'driver_SPZT',
+					title : '审批结果',
+					formatter: function (value,row,index) {
+                        if (value=="0"){
+                            return "<span class='badge badge-danger'>" + "未审查" + "</span>";
+                        }
+                        if (value=="1"){
+                            return "<span class='badge badge-primary'>" + "已审查" + "</span>";
+                        }
+                    }
+				},
 		        {
+                    field : 'driver_SPZT',
 		            title: '操作',
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	var actions = [];
 		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.guid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.guid + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.guid + '\')"><i class="fa fa-remove"></i>删除</a> ');
+                        if (value=="0"){
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="approval(\'' + row.guid + '\')"><i class="fa fa-edit"></i>审　批</a> ');
+						}
+                        if (value=="1"){
+                            actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已审批</a> ');
+						}
 						return actions.join('');
 		            }
 		        }]
             };
             $.table.init(options);
         });
+
+        function approval(id) {
+            $.modal.confirm("是否确定通过审批？", function() {
+                $.ajax({
+                    type : 'post',
+                    url: prefix + "/approval/" + id,
+                    success : function(result) {
+                        alert(result.code);//0
+                        if (result.code == web_status.SUCCESS) {
+                            $.modal.msgSuccess(result.msg);
+                            //$.treeTable.refresh();
+                            //$.table.search();
+                            $.table.refresh();
+                        } else {
+                            $.modal.msgError(result.msg);
+                        }
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
