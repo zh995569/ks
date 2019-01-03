@@ -20,14 +20,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap id="car_registerResult" type="CAR_REGISTER">
         <id     property="GUID"   column="GUID"     />
         <result property="CAR_CPHM" column="CAR_CPHM"   /><!-- 车牌号码 -->
+
     </resultMap>
     <resultMap id="driver_registerResult" type="DRIVER_REGISTER">
         <id     property="GUID"   column="GUID"     />
         <result property="DRIVER_XM" column="DRIVER_XM"   /><!-- 驾驶员姓名 -->
+        <result property="DRIVER_XCZ" column="DRIVER_XCZ"   /><!-- 驾驶员现场照 -->
     </resultMap>
 	
 	<sql id="selectCheck_record">
-        select c1.GUID,c1.CAR_ID,c1.DRIVER_ID,c1.DKSJ,c1.ZBX,c1.ZBY,c1.XCZ ,c1.CAR_RECORD_ID,c2.CAR_CPHM,d.DRIVER_XM
+        select c1.GUID,c1.CAR_ID,c1.DRIVER_ID,c1.DKSJ,c1.ZBX,c1.ZBY,c1.XCZ ,c1.CAR_RECORD_ID,c2.CAR_CPHM,d.DRIVER_XM,d.DRIVER_XCZ
         from CHECK_RECORD c1 LEFT JOIN CAR_REGISTER c2 on c1.CAR_ID = c2.GUID
         LEFT JOIN DRIVER_REGISTER d on c1.DRIVER_ID = d.GUID
     </sql>

@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.BASE64Encoder;
 
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -107,6 +109,18 @@ public class Check_recordController extends BaseController{
     public String edit(@PathVariable("guid") String guid, ModelMap mmap)
     {
         CHECK_RECORD check_record = check_recordService.selectById(guid);
+
+        String xcz = null;
+        String driver_xcz = null;
+        if(check_record.getXCZ() != null) {
+            xcz = new String(check_record.getXCZ());
+        }
+        if(check_record.getDriver_register().getDRIVER_XCZ() != null) {
+            driver_xcz = new String(check_record.getDriver_register().getDRIVER_XCZ());
+        }
+
+        mmap.put("xcz","data:image/jpg;base64,"+xcz);
+        mmap.put("driver_xcz","data:image/jpg;base64,"+driver_xcz);
         mmap.put("check_record", check_record);
         mmap.put("driver_registers",driver_registerService.selectList(new DRIVER_REGISTER()));
         mmap.put("car_registers",car_registerService.selectList(new CAR_REGISTER()));
