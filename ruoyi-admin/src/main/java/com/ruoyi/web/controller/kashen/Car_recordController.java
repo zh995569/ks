@@ -4,6 +4,7 @@ import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.ExcelUtil;
+import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.kashen.domain.CAR_RECORD;
@@ -150,5 +151,21 @@ public class Car_recordController extends BaseController{
         int total = car_recordService.total(car_record);
         map.put("total",total);
         return map;
+    }
+
+    /**
+     * 确认审批
+     */
+    @RequiresPermissions("kashen:car_record:edit")
+    @PostMapping("/approval/{guid}")
+    @ResponseBody
+    public AjaxResult approval(@PathVariable("guid") String guid)
+    {
+        if (car_recordService.selectById(guid)==null)
+        {
+            return error(1, "不存在");
+        }
+        ShiroUtils.clearCachedAuthorizationInfo();
+        return toAjax(car_recordService.approval(guid));
     }
 }
