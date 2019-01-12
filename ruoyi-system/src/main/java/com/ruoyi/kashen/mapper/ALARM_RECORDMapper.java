@@ -28,4 +28,6 @@ public interface ALARM_RECORDMapper {
     public int deleteByIds(String[] guids);
 
     public int insertUnPunch(ALARM_RECORD alarm_record);
+
+    public int total();
 }

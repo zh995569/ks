@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -53,9 +54,15 @@ public class Car_recordServiceImpl implements ICar_recordService{
     }
 
     @Override
-    public int total(CAR_RECORD car_record) {
-        return car_recordMapper.total(car_record);
+    public int total() {
+        return car_recordMapper.total();
     }
+
+    @Override
+    public int todayTotal(Map<String, Object> map) {
+        return car_recordMapper.todayTotal(map);
+    }
+
 
     @Override
     public int approval(String guid) {

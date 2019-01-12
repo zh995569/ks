@@ -45,4 +45,9 @@ public class Alarm_recordServiceImpl implements IAlarm_recordService{
         //参数是数组，将ids用逗号分隔成数组
         return alarm_recordMapper.deleteByIds(Convert.toStrArray(ids));
     }
+
+    @Override
+    public int total() {
+        return alarm_recordMapper.total();
+    }
 }

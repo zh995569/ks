@@ -5,6 +5,7 @@ import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.ExcelUtil;
 import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.framework.util.ZUtil;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.kashen.domain.CAR_RECORD;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,11 +148,19 @@ public class Car_recordController extends BaseController{
      */
     @RequestMapping("/total")
     @ResponseBody
-    public Map<String, Object> total(CAR_RECORD car_record)
+    public Map<String, Object> total()
     {
         Map<String,Object> map = new HashMap<>();
-        int total = car_recordService.total(car_record);
+        Date startTime = ZUtil.calendarDate(-12);
+        Date endTime = ZUtil.calendarDate(12);
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        map.put("startTime",s.format(startTime));
+        map.put("endTime",s.format(endTime));
+
+        int total = car_recordService.total();
+        int todayTotal = car_recordService.todayTotal(map);
         map.put("total",total);
+        map.put("todayTotal",todayTotal==0?0:todayTotal);
         return map;
     }
 

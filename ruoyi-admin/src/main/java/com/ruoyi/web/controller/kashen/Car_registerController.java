@@ -4,6 +4,7 @@ import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.ExcelUtil;
+import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.kashen.domain.CAR_REGISTER;
@@ -71,8 +72,11 @@ public class Car_registerController extends BaseController{
     public Map<String, Object> total(CAR_REGISTER car_register)
     {
         Map<String,Object> map = new HashMap<>();
-        int total = car_registerService.total(car_register);
+        int total = car_registerService.total();
+        car_register.setCAR_CLZT("1");
+        int totalCAR_CLZT = car_registerService.totalCAR_CLZT(car_register);
         map.put("total",total);
+        map.put("totalCAR_CLZT",totalCAR_CLZT);
         return map;
     }
 
@@ -154,6 +158,24 @@ public class Car_registerController extends BaseController{
     @ResponseBody
     public Object downPic(String guid)
     {
+        return null;
+    }
+
+
+    /**
+     * 确认审批
+     */
+    @RequiresPermissions("kashen:car_record:edit")
+    @PostMapping("/approval/{guid}")
+    @ResponseBody
+    public AjaxResult approval(@PathVariable("guid") String guid,@PathVariable("val") String val)
+    {
+        if (car_registerService.selectById(guid)==null)
+        {
+            return error(1, "不存在");
+        }
+        ShiroUtils.clearCachedAuthorizationInfo();
+        //return toAjax(car_registerService.approval(guid));
         return null;
     }
 

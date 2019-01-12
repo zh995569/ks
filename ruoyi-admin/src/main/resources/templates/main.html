@@ -38,10 +38,13 @@
             $.ajax({
                 type:"post",
                 url:ctx+"kashen/car_register/total",
-                data:"",
+                data:"{CAR_CLZT:'1'}",
                 dataType:"json",
                 success:function (data) {
+                    //总车辆数量
                     $("#car_registerTotal").html(data.total);
+                    //外出作业车辆数
+                    $("#CAR_CLZT").html(data.totalCAR_CLZT);
                 }
             });
             //驾驶员总数量
@@ -54,26 +57,34 @@
                     $("#driver_registerTotal").html(data.total);
                 }
             });
-            //外出作业车辆数量
-            $.ajax({
-                type:"post",
-                url:ctx+"kashen/car_register/total",
-                data:"{CAR_CLZT:1}",
-                dataType:"json",
-                success:function (data) {
-                    $("#car_registerTotal").html(data.total);
-                }
-            });
-            //总车辆使用记录数
+
+            //车辆使用总记录数
             $.ajax({
                 type:"post",
                 url:ctx+"kashen/car_record/total",
-                data:"{DRIVER_SPZT:1}",
+                data:"",
                 dataType:"json",
                 success:function (data) {
+                    //车辆使用总记录数
                     $("#carUseNum").html(data.total);
+                    //今日用车数（今天 在申请用车的开始时间和结束时间内）
+                    $("#todayCarUseNum").html(data.todayTotal);
                 }
             });
+
+            //异常预警未处理数量
+            $.ajax({
+                type:"post",
+                url:ctx+"kashen/car_record/total",
+                data:"",
+                dataType:"json",
+                success:function (data) {
+                    $("#alarmTotal").html(data.total);
+                }
+            });
+
+
+
             drawLayer02Label($("#layer02_01 canvas").get(0),"总车辆数量",60,200);
             drawLayer02Label($("#layer02_02 canvas").get(0),"总驾驶员数量",60,300);
             drawLayer02Label($("#layer02_03 canvas").get(0),"外出作业车辆数",60,300);
@@ -119,7 +130,7 @@
         </div>
         <div id="layer02_03" style="width:16%;">
             <div class="layer02-data">
-                <span id="CAR_CLZT" style="font-size:26px;">11</span>
+                <span id="CAR_CLZT" style="font-size:26px;"></span>
                 <span style="font-size:16px;">台</span>
             </div>
             <canvas width="180" height="100"></canvas>
@@ -133,14 +144,14 @@
         </div>
         <div id="layer02_05" style="width:16%;">
             <div class="layer02-data">
-                <span style="font-size:26px;">113</span>
+                <span id="todayCarUseNum" style="font-size:26px;"></span>
                 <span style="font-size:16px;">次</span>
             </div>
             <canvas width="180" height="100"></canvas>
         </div>
         <div id="layer02_06" style="width:13%;">
             <div class="layer02-data">
-                <span style="font-size:26px;">22</span>
+                <span id="alarmTotal" style="font-size:26px;"></span>
                 <span style="font-size:16px;">个</span>
             </div>
             <canvas width="180" height="100"></canvas>

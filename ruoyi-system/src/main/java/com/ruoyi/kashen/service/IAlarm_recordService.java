@@ -19,4 +19,6 @@ public interface IAlarm_recordService {
 
 
     public int deleteByIds(String ids);
+
+    public int total();
 }

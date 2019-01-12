@@ -99,5 +99,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{GUID}
         </foreach>
     </delete>
+
+    <select id="total">
+        SELECT COUNT(*) FROM ALARM_RECORD WHERE ALARM_ZT=1
+    </select>
     
 </mapper>

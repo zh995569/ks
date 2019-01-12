@@ -97,9 +97,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <select id="total" parameterType="CAR_RECORD" resultType="Integer">
-        SELECT COUNT(*) FROM CAR_RECORD WHERE 1=1
-        <if test="DRIVER_SPZT != null">AND DRIVER_SPZT = #{DRIVER_SPZT}</if>
+    <select id="total" resultType="Integer">
+        SELECT COUNT(*) FROM CAR_RECORD WHERE DRIVER_SPZT = 1
+    </select>
+
+    <select id="todayTotal" parameterType="java.util.Map" resultType="Integer">
+        SELECT COUNT(*) FROM CAR_RECORD WHERE DRIVER_SPZT = 1 AND
+        (DRIVER_KSSJ &lt;= to_date(#{startTime},'yyyy-MM-dd HH24:mi:ss') AND DRIVER_JSSJ >= to_date(#{endTime},'yyyy-MM-dd HH24:mi:ss'))
     </select>
 
     <update id="approval" parameterType="String">

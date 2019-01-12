@@ -157,18 +157,44 @@
 					}
 				},
 		        {
-		            title: '操作',
-		            align: 'center',
+                    field : 'car_SFSC',
+                    title: '操作',
+                    align: 'center',
 		            formatter: function(value, row, index) {
 		            	var actions = [];
 		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.guid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.guid + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        if (value=="0"){
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="approval(\'' + row.guid + '\')"><i class="fa fa-edit"></i>审　批</a> ');
+                        }
+                        if (value=="1"){
+                            actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已审批</a> ');
+                        }
 						return actions.join('');
 		            }
 		        }]
             };
             $.table.init(options);
         });
+
+
+        function approval(id) {
+            layer.prompt({title:'请输入拒绝原因'},function(val,index){
+                var url= prefix + "/approval";
+                $.post(url,{id:id,val:val},function(data){
+                    if (result.code == web_status.SUCCESS) {
+                        $.modal.msgSuccess(result.msg);
+                        //$.treeTable.refresh();
+                        //$.table.search();
+                        $.table.refresh();
+                    } else {
+                        $.modal.msgError(result.msg);
+                    }
+                });
+                /*layer.close(index);
+                window.parent.location.reload();*/
+            });
+        }
     </script>
 </body>
 </html>

@@ -6,6 +6,7 @@ import sun.misc.BASE64Encoder;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
@@ -24,6 +25,20 @@ public class ZUtil {
     public static String get32UUID() {
         String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
         return uuid;
+    }
+
+    /**
+     * 获得整小时数，传0当天12点，传-12当天0点，传12第二天0点
+     * @param i
+     * @return
+     */
+    public static Date calendarDate(int i){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR, i);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTime();
     }
 
 
