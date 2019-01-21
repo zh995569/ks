@@ -30,4 +30,6 @@ public interface CAR_REGISTERMapper {
     public int total();
 
     public int totalCAR_CLZT(CAR_REGISTER car_register);
+
+    public int examine(CAR_REGISTER car_register);
 }

@@ -166,17 +166,16 @@ public class Car_registerController extends BaseController{
      * 确认审批
      */
     @RequiresPermissions("kashen:car_record:edit")
-    @PostMapping("/approval/{guid}")
+    @PostMapping("/examine")
     @ResponseBody
-    public AjaxResult approval(@PathVariable("guid") String guid,@PathVariable("val") String val)
+    public AjaxResult examine(CAR_REGISTER car_register)
     {
-        if (car_registerService.selectById(guid)==null)
+        if (car_registerService.selectById(car_register.getGUID())==null)
         {
             return error(1, "不存在");
         }
         ShiroUtils.clearCachedAuthorizationInfo();
-        //return toAjax(car_registerService.approval(guid));
-        return null;
+        return toAjax(car_registerService.examine(car_register));
     }
 
 }

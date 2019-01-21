@@ -44,7 +44,9 @@ public class Test1 {
         /*String path = "e:\\123.jpeg";
         String base64 = ZUtil.GetImageStr(path);
         System.out.println(base64);*/
-
+        String str = "sdsdffffff";
+        String s = str.replaceAll("aaa","aaaa");
+        System.out.println(s);
 
     }
 

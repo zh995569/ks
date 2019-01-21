@@ -48,15 +48,20 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-2 control-label">驾驶员照片:</label>
-				<label class="col-sm-6 control-label">现场照片:</label>
-				<div class="col-sm-10">
-
-					<!--<input id="DRIVER_XCZ" name="DRIVER_XCZ" th:field="*{DRIVER_XCZ}" class="form-control" type="text">-->
+				<label class="col-sm-3 control-label">驾驶员照片:</label>
+				<label class="col-sm-5 control-label">现场照片:</label>
+				<!--<div class="col-sm-10">
 					<img id='img' name="DRIVER_XCZ" style="float: left;border: 1px solid red;width: 230px;height:180px;" th:src="@{${driver_xcz}}">
 					<img id='XCZ' name="XCZ" style="float: right;border: 1px solid red;width: 230px;height:180px;" th:src="@{${xcz}}">
+				</div>-->
+			</div>
+			<div class="form-group-">
+				<div class="col-sm-4 pull-right">
+					<img id='XCZ' name="XCZ" style="float: right;border: 1px solid red;width: 230px;height:180px;margin-right: 40px;" th:src="@{${xcz}}">
 				</div>
-
+				<div class="col-sm-6 pull-right">
+					<img id='img' name="DRIVER_XCZ" style="float: left;border: 1px solid red;width: 230px;height:180px;" th:src="@{${driver_xcz}}">
+				</div>
 			</div>
 
 		</form>

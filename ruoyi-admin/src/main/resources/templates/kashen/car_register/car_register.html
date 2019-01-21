@@ -179,7 +179,7 @@
 
 
         function approval(id) {
-            layer.prompt({title:'请输入拒绝原因'},function(val,index){
+            /*layer.prompt({title:'审批'},function(val,index){
                 var url= prefix + "/approval";
                 $.post(url,{id:id,val:val},function(data){
                     if (result.code == web_status.SUCCESS) {
@@ -191,9 +191,45 @@
                         $.modal.msgError(result.msg);
                     }
                 });
-                /*layer.close(index);
-                window.parent.location.reload();*/
-            });
+                /!*layer.close(index);
+                window.parent.location.reload();*!/
+            });*/
+            layer.open({
+                type:1,
+                content:'<input type="text" name="res" id="res"/>',
+                btn:['同意','拒绝','取消'],
+				shadeClose: true,//点击阴影关闭
+                yes:function(index,layero)
+                {//index为当前层索引//layero 为 弹出层对象//在回调函数末尾添加 “return false”可以禁止点击该按钮关闭弹出层//return false;
+                    alert("同意");
+					$.ajax({
+                        type: "POST",//方法类型
+						dataType:"json",
+						url:prefix+"/approval",
+						data:{"guid":id+"","CAR_SFSC":1,"res":$("#res").val()},
+						success:function (result) {
+							//$.treeTable.refresh();
+                            //$.table.search();
+                            $.table.refresh();
+                        },
+						error:function () {
+							
+                        }
+					});
+                    layer.close(index);
+                },
+                btn2:function(index,layero){//按钮二回到
+                    alert("拒绝");
+                    layer.close(index);
+                },
+                btn3:function(index,layero){//按钮三回调
+                    alert("取消");
+                    layer.close(index);
+                },
+                cancel:function(){//右上角关闭毁回调
+                    layer.close(index);
+                }
+			})
         }
     </script>
 </body>

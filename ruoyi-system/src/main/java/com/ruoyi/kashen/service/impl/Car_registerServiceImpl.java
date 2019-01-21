@@ -59,5 +59,15 @@ public class Car_registerServiceImpl implements ICar_registerService{
         return car_registerMapper.totalCAR_CLZT(car_register);
     }
 
+    /**
+     * 审核，未审核0，同意1，拒绝2
+     * @param car_register
+     * @return
+     */
+    @Override
+    public int examine(CAR_REGISTER car_register) {
+        return  car_registerMapper.examine(car_register);
+    }
+
 
 }
