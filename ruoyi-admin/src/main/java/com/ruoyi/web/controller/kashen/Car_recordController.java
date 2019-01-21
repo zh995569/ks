@@ -108,14 +108,14 @@ public class Car_recordController extends BaseController{
      * 修改车辆外出审批登记
      */
     @GetMapping("/edit/{guid}")
-    public String edit(@PathVariable("guid") String guid, ModelMap mmap)
-    {
+    public String edit(@PathVariable("guid") String guid, ModelMap mmap) {
+
         CAR_RECORD car_record = car_recordService.selectById(guid);
-        System.out.println(car_record.toString());
         mmap.put("car_record", car_record);
         //下面这个搞什么你是根据什么查询的//下拉选择的传集合到页面中
         mmap.put("driver_registers",driver_registerService.selectList(new DRIVER_REGISTER()));
         mmap.put("car_registers",car_registerService.selectList(new CAR_REGISTER()));
+
         return prefix + "/edit";
     }
 
@@ -168,15 +168,16 @@ public class Car_recordController extends BaseController{
      * 确认审批
      */
     @RequiresPermissions("kashen:car_record:edit")
-    @PostMapping("/approval/{guid}")
+    @PostMapping("/examine")
     @ResponseBody
-    public AjaxResult approval(@PathVariable("guid") String guid)
-    {
-        if (car_recordService.selectById(guid)==null)
+    public AjaxResult examine(CAR_RECORD car_record) {
+
+        if (car_recordService.selectById(car_record.getGUID())==null)
         {
             return error(1, "不存在");
         }
         ShiroUtils.clearCachedAuthorizationInfo();
-        return toAjax(car_recordService.approval(guid));
+        return toAjax(car_recordService.examine(car_record));
     }
+
 }

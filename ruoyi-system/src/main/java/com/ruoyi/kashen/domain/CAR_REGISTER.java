@@ -57,7 +57,7 @@ public class CAR_REGISTER extends BaseEntity{
     private String CAR_SSPCS;
     @Excel(name = "所属区域")
     private String CAR_SSQY;
-    @Excel(name = "是否审查", readConverterExp = "0=否,1=是")
+    @Excel(name = "是否审查", readConverterExp = "0=未审查,1=已审查,2=已拒绝")
     private Integer CAR_SFSC;
     @Excel(name = "审查理由", width = 50)
     private String CAR_REASON;

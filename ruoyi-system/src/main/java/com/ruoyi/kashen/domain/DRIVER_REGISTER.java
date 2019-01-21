@@ -61,8 +61,12 @@ public class DRIVER_REGISTER extends BaseEntity{
     private byte[] DRIVER_RLMB;
 
     /** 审查状态 */
-    @Excel(name = "审查状态", readConverterExp = "0=否,1=是")
+    @Excel(name = "审查状态", readConverterExp = "0=未审查,1=已审查,2=已拒绝")
     private Integer DRIVER_SCZT;
+
+    /** 审查理由 */
+    @Excel(name = "审查理由", width = 50)
+    private String APPROVAL_REASON;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -164,8 +168,30 @@ public class DRIVER_REGISTER extends BaseEntity{
         this.DRIVER_SCZT = DRIVER_SCZT;
     }
 
+    public String getAPPROVAL_REASON() {
+        return APPROVAL_REASON;
+    }
+
+    public void setAPPROVAL_REASON(String APPROVAL_REASON) {
+        this.APPROVAL_REASON = APPROVAL_REASON;
+    }
+
     @Override
     public String toString() {
-        return "DRIVER_REGISTER{" + "GUID='" + GUID + '\'' + ", DRIVER_SFZH='" + DRIVER_SFZH + '\'' + ", DRIVER_XM='" + DRIVER_XM + '\'' + ", DRIVER_XB='" + DRIVER_XB + '\'' + ", DRIVER_JG='" + DRIVER_JG + '\'' + ", DRIVER_ZZ='" + DRIVER_ZZ + '\'' + ", DRIVER_MZ='" + DRIVER_MZ + '\'' + ", DRIVER_JSZBH='" + DRIVER_JSZBH + '\'' + ", APP_PWD='" + APP_PWD + '\'' + ", DRIVER_XCZ=" + Arrays.toString(DRIVER_XCZ) + ", DRIVER_RLMB=" + Arrays.toString(DRIVER_RLMB) + ", DRIVER_SCZT=" + DRIVER_SCZT + '}';
+        return "DRIVER_REGISTER{" +
+                "GUID='" + GUID + '\'' +
+                ", DRIVER_SFZH='" + DRIVER_SFZH + '\'' +
+                ", DRIVER_XM='" + DRIVER_XM + '\'' +
+                ", DRIVER_XB='" + DRIVER_XB + '\'' +
+                ", DRIVER_JG='" + DRIVER_JG + '\'' +
+                ", DRIVER_ZZ='" + DRIVER_ZZ + '\'' +
+                ", DRIVER_MZ='" + DRIVER_MZ + '\'' +
+                ", DRIVER_JSZBH='" + DRIVER_JSZBH + '\'' +
+                ", APP_PWD='" + APP_PWD + '\'' +
+                ", DRIVER_XCZ=" + Arrays.toString(DRIVER_XCZ) +
+                ", DRIVER_RLMB=" + Arrays.toString(DRIVER_RLMB) +
+                ", DRIVER_SCZT=" + DRIVER_SCZT +
+                ", APPROVAL_REASON='" + APPROVAL_REASON + '\'' +
+                '}';
     }
 }

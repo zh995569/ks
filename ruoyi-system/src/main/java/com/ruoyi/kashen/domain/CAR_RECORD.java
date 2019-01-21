@@ -20,7 +20,7 @@ public class CAR_RECORD extends BaseEntity {
     private String GUID;
 
     /** 车辆编号 */
-    @Excel(name = "车俩编号", width = 40)
+    @Excel(name = "车辆编号", width = 40)
     private String CAR_ID;
 
     /** 驾驶员编号 */
@@ -44,8 +44,12 @@ public class CAR_RECORD extends BaseEntity {
     private Date DRIVER_JSSJ;
 
     /** 审批状态 */
-    @Excel(name = "审批状态", readConverterExp="0=未审批,1=已审批")
+    @Excel(name = "审批状态", readConverterExp="0=未审批,1=已审批 ,2=已拒绝")
     private Integer DRIVER_SPZT;
+
+    /** 审查理由 */
+    @Excel(name = "审查理由", width = 50)
+    private String APPROVAL_REASON;
 
     @Excel(name = "车牌号码", targetAttr="CAR_CPHM")
     private CAR_REGISTER car_register;
@@ -117,6 +121,14 @@ public class CAR_RECORD extends BaseEntity {
         this.DRIVER_SPZT = DRIVER_SPZT;
     }
 
+    public String getAPPROVAL_REASON() {
+        return APPROVAL_REASON;
+    }
+
+    public void setAPPROVAL_REASON(String APPROVAL_REASON) {
+        this.APPROVAL_REASON = APPROVAL_REASON;
+    }
+
     public CAR_REGISTER getCar_register() {
         return car_register;
     }
@@ -135,6 +147,18 @@ public class CAR_RECORD extends BaseEntity {
 
     @Override
     public String toString() {
-        return "CAR_RECORD{" + "GUID='" + GUID + '\'' + ", CAR_ID='" + CAR_ID + '\'' + ", DRIVER_ID='" + DRIVER_ID + '\'' + ", DRIVER_WCSY='" + DRIVER_WCSY + '\'' + ", DRIVER_WCDD='" + DRIVER_WCDD + '\'' + ", DRIVER_KSSJ=" + DRIVER_KSSJ + ", DRIVER_JSSJ=" + DRIVER_JSSJ + ", DRIVER_SPZT=" + DRIVER_SPZT + ", car_register=" + car_register + ", driver_register=" + driver_register + '}';
+        return "CAR_RECORD{" +
+                "GUID='" + GUID + '\'' +
+                ", CAR_ID='" + CAR_ID + '\'' +
+                ", DRIVER_ID='" + DRIVER_ID + '\'' +
+                ", DRIVER_WCSY='" + DRIVER_WCSY + '\'' +
+                ", DRIVER_WCDD='" + DRIVER_WCDD + '\'' +
+                ", DRIVER_KSSJ=" + DRIVER_KSSJ +
+                ", DRIVER_JSSJ=" + DRIVER_JSSJ +
+                ", DRIVER_SPZT=" + DRIVER_SPZT +
+                ", APPROVAL_REASON='" + APPROVAL_REASON + '\'' +
+                ", car_register=" + car_register +
+                ", driver_register=" + driver_register +
+                '}';
     }
 }

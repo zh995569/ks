@@ -16,31 +16,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="APP_PWD"    column="APP_PWD"/>
         <result property="DRIVER_XCZ"    column="DRIVER_XCZ" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
         <result property="DRIVER_RLMB"    column="DRIVER_RLMB"    />
-        <result property="DRIVER_SCZT"    column="DRIVER_SCZT"
-
-
-        />
+        <result property="DRIVER_SCZT"    column="DRIVER_SCZT"/>
+        <result property="APPROVAL_REASON" column="APPROVAL_REASON"/>
     </resultMap>
 	
 	<sql id="selectDriver_register">
-        select GUID, DRIVER_SFZH, DRIVER_XM, DRIVER_XB, DRIVER_JG, DRIVER_ZZ, DRIVER_MZ, DRIVER_JSZBH, APP_PWD,DRIVER_XCZ,DRIVER_RLMB,DRIVER_SCZT from DRIVER_REGISTER
+        select GUID, DRIVER_SFZH, DRIVER_XM, DRIVER_XB, DRIVER_JG, DRIVER_ZZ, DRIVER_MZ, DRIVER_JSZBH, APP_PWD,DRIVER_XCZ,DRIVER_RLMB,DRIVER_SCZT,APPROVAL_REASON from DRIVER_REGISTER
     </sql>
 	
     <select id="selectList" parameterType="DRIVER_REGISTER" resultMap="Driver_registerResult">
         <include refid="selectDriver_register"/>
-        <where>  
-            <if test="GUID != null  and GUID != '' "> and GUID = #{GUID}</if>
-            <if test="DRIVER_SFZH != null  and DRIVER_SFZH != '' "> and DRIVER_SFZH = #{DRIVER_SFZH}</if>
-            <if test="DRIVER_XM != null  and DRIVER_XM != '' "> and DRIVER_XM = #{DRIVER_XM}</if>
-            <if test="DRIVER_XB != null  and DRIVER_XB != '' "> and DRIVER_XB = #{DRIVER_XB}</if>
-            <if test="DRIVER_JG != null  and DRIVER_JG != '' "> and DRIVER_JG = #{DRIVER_JG}</if>
-            <if test="DRIVER_ZZ != null  and DRIVER_ZZ != '' "> and DRIVER_ZZ = #{DRIVER_ZZ}</if>
-            <if test="DRIVER_MZ != null  and DRIVER_MZ != '' "> and DRIVER_MZ = #{DRIVER_MZ}</if>
-            <if test="DRIVER_JSZBH != null  and DRIVER_JSZBH != '' "> and DRIVER_JSZBH = #{DRIVER_JSZBH}</if>
-            <if test="APP_PWD != null  and APP_PWD != '' "> and APP_PWD = #{APP_PWD}</if>
-            <if test="DRIVER_XCZ != null"> and DRIVER_XCZ = #{DRIVER_XCZ}</if>
-            <if test="DRIVER_RLMB != null"> and DRIVER_RLMB = #{DRIVER_RLMB}</if>
-            <if test="DRIVER_SCZT != null"> and DRIVER_SCZT = #{DRIVER_SCZT}</if>
+        <where>
+            <if test="DRIVER_SFZH != null  and DRIVER_SFZH != '' "> and DRIVER_SFZH like concat(concat('%',#{DRIVER_SFZH}),'%')</if>
+            <if test="DRIVER_XM != null  and DRIVER_XM != '' "> and DRIVER_XM like concat(concat('%',#{DRIVER_XM}),'%')</if>
+            <if test="DRIVER_MZ != null  and DRIVER_MZ != '' "> and DRIVER_MZ like concat(concat('%',#{DRIVER_MZ}),'%')</if>
          </where>
     </select>
     
@@ -64,6 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="DRIVER_XCZ != null">DRIVER_XCZ,</if>
             <if test="DRIVER_RLMB != null">DRIVER_RLMB,</if>
             <if test="DRIVER_SCZT != null">DRIVER_SCZT,</if>
+            <if test="APPROVAL_REASON != null  and APPROVAL_REASON != ''  ">APPROVAL_REASON,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="GUID != null  and GUID != ''  ">#{GUID},</if>
@@ -78,6 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="DRIVER_XCZ != null">#{DRIVER_XCZ},</if>
             <if test="DRIVER_RLMB != null">#{DRIVER_RLMB},</if>
             <if test="DRIVER_SCZT != null">#{DRIVER_SCZT},</if>
+            <if test="APPROVAL_REASON != null  and APPROVAL_REASON != ''  ">#{APPROVAL_REASON},</if>
          </trim>
     </insert>
 	 
@@ -96,6 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="DRIVER_XCZ != null">DRIVER_XCZ = #{DRIVER_XCZ},</if>
             <if test="DRIVER_RLMB != null">DRIVER_RLMB = #{DRIVER_RLMB},</if>
             <if test="DRIVER_SCZT != null">DRIVER_SCZT = #{DRIVER_SCZT},</if>
+            <if test="APPROVAL_REASON != null  and APPROVAL_REASON != ''  ">APPROVAL_REASON = #{APPROVAL_REASON},</if>
         </trim>
         where GUID = #{GUID}
     </update>
@@ -115,5 +107,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT count(*) FROM DRIVER_REGISTER WHERE 1=1
         <if test="DRIVER_SCZT!=null">AND DRIVER_SCZT = #{DRIVER_SCZT}</if>
     </select>
+
+    <!-- 审核，参数 guid，审核状态，审核理由 -->
+    <update id="examine">
+        update DRIVER_REGISTER
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="DRIVER_SCZT != null">DRIVER_SCZT = #{DRIVER_SCZT},</if>
+            <if test="APPROVAL_REASON != null and APPROVAL_REASON != '' ">APPROVAL_REASON = #{APPROVAL_REASON},</if>
+        </trim>
+        where GUID = #{GUID}
+    </update>
     
 </mapper>

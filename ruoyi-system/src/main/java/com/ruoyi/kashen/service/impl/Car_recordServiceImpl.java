@@ -65,8 +65,8 @@ public class Car_recordServiceImpl implements ICar_recordService{
 
 
     @Override
-    public int approval(String guid) {
-        return car_recordMapper.approval(guid);
+    public int examine(CAR_RECORD car_record) {
+        return car_recordMapper.examine(car_record);
     }
 
 }

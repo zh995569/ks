@@ -71,10 +71,10 @@
 				<label class="col-sm-3 control-label">审查状态：</label>
 				<div class="col-sm-8">
 					<!--<input id="DRIVER_SCZT" name="DRIVER_SCZT" th:field="*{DRIVER_SCZT}" class="form-control" type="text">-->
-					<select name="CAR_SFSC" class="form-control m-b" lay-verify="required">
-						<option value="" th:selected="*{DRIVER_SCZT==null}"></option>
+					<select name="DRIVER_SCZT" class="form-control m-b" lay-verify="required">
 						<option value="0" th:selected="*{DRIVER_SCZT==0}">未审查</option>
 						<option value="1" th:selected="*{DRIVER_SCZT==1}">已审查</option>
+						<option value="2" th:selected="*{DRIVER_SCZT==2}">已拒绝</option>
 					</select>
 				</div>
 			</div>

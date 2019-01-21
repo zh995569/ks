@@ -36,7 +36,7 @@ public class AlarmRecordTask {
         if(unpunch != null && unpunch.size() > 0) {
             System.out.println("每10分钟查询一次记录----------总记录数为：" + unpunch.size() +"次时间为：" + new Date());
 
-            Thread.sleep(50000);
+            Thread.sleep(600000);
             for(CHECK_RECORD c : unpunch) {
                 ALARM_RECORD alarm_record = new ALARM_RECORD();
                 alarm_record.setGUID(UUID.randomUUID().toString());

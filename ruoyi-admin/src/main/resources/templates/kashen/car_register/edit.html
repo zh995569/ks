@@ -118,10 +118,9 @@
 					<!--<input id="CAR_SFSC" name="CAR_SFSC" th:field="*{CAR_SFSC}" class="form-control" type="text">-->
 					<div class="layui-input-block">
 						<select name="CAR_SFSC" class="form-control m-b" lay-verify="required">
-							<option value="" th:selected="*{CAR_SFSC==null}"></option>
 							<option value="0" th:selected="*{CAR_SFSC==0}">未审查</option>
 							<option value="1" th:selected="*{CAR_SFSC==1}">已审查</option>
-							<option value="1" th:selected="*{CAR_SFSC==2}">已拒绝</option>
+							<option value="2" th:selected="*{CAR_SFSC==2}">已拒绝</option>
 						</select>
 					</div>
 				</div>

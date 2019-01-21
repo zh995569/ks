@@ -50,4 +50,9 @@ public class Driver_registerServiceImpl implements IDriver_registerService{
     public int total(DRIVER_REGISTER driver_register){
         return driver_registerMapper.total(driver_register);
     }
+
+    @Override
+    public int examine(DRIVER_REGISTER driver_register) {
+        return driver_registerMapper.examine(driver_register);
+    }
 }

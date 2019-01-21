@@ -168,14 +168,14 @@
 		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.guid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.guid + '\')"><i class="fa fa-remove"></i>删除</a>');
                         if (value=="0"){
-                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="approval(\'' + row.guid + '\')"><i class="fa fa-edit"></i>审　批</a> ');
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="approval(\'' + row.guid + '\')"><i class="fa fa-edit"></i>审　查</a> ');
                         }
                         if (value=="1"){
-                            actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已审批</a> ');
+                            actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已审查</a> ');
                         }
                         if(value == '2'){
                             actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已拒绝</a> ');
-						}
+                        }
 						return actions.join('');
 		            }
 		        }]
@@ -185,21 +185,7 @@
 
 
         function approval(id) {
-            /*layer.prompt({title:'审批'},function(val,index){
-                var url= prefix + "/approval";
-                $.post(url,{id:id,val:val},function(data){
-                    if (result.code == web_status.SUCCESS) {
-                        $.modal.msgSuccess(result.msg);
-                        //$.treeTable.refresh();
-                        //$.table.search();
-                        $.table.refresh();
-                    } else {
-                        $.modal.msgError(result.msg);
-                    }
-                });
-                /!*layer.close(index);
-                window.parent.location.reload();*!/
-            });*/
+
             layer.open({
                 type:1,
                 content:'<input type="text" name="CAR_REASON" id="CAR_REASON"/>',
@@ -211,7 +197,7 @@
                         type: "POST",//方法类型
 						dataType:"json",
 						url:prefix+"/examine",
-						data:{"GUID":id+"","CAR_SFSC":1,"REASON":$("#REASON").val()},
+						data:{"GUID":id+"","CAR_SFSC":1,"CAR_REASON":$("#CAR_REASON").val()},
 						success:function (result) {
 							//$.treeTable.refresh();
                             //$.table.search();
@@ -225,7 +211,7 @@
                 },
                 btn2:function(index,layero){//按钮二回到
                     if($("#CAR_REASON").val() == ''){
-                        alert("请输入拒绝理由！")
+                        layer.msg("请输入拒绝理由！", {time:1000, icon:5, shift:6});
                         return false;
 					}
                     $.ajax({

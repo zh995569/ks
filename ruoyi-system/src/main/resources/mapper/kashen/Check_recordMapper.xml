@@ -13,8 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="ZBY"    column="ZBY"    />
         <result property="XCZ"    column="XCZ"    />
         <result property="CAR_RECORD_ID"    column="CAR_RECORD_ID"    />
-        <association property="car_register"    column="CAR_ID" javaType="CAR_REGISTER" resultMap="car_registerResult" />
-        <association property="driver_register"    column="DRIVER_ID" javaType="DRIVER_REGISTER" resultMap="driver_registerResult" />
+        <association property="car_register"     javaType="CAR_REGISTER" resultMap="car_registerResult" />
+        <association property="driver_register"     javaType="DRIVER_REGISTER" resultMap="driver_registerResult" />
     </resultMap>
 
     <resultMap id="car_registerResult" type="CAR_REGISTER">
@@ -42,8 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
     <select id="selectList" parameterType="CHECK_RECORD" resultMap="check_recordResult">
         <include refid="selectCheck_record"/>
-        <where>  
-            <if test="GUID != null  and GUID != '' "> and GUID = #{GUID}</if>
+        <where>
             <if test="CAR_ID != null  and CAR_ID != '' "> and CAR_CPHM like concat(concat('%',#{CAR_ID}),'%')</if>
             <if test="DRIVER_ID != null  and DRIVER_ID != '' "> and DRIVER_XM like concat(concat('%',#{DRIVER_ID}),'%')</if>
             <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
@@ -54,8 +53,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
             <if test="ZBX != null and ZBX != '' " > and ZBX like concat(concat('%',#{ZBX}),'%') </if>
             <if test="ZBY != null and ZBY != '' "> and ZBY like concat(concat('%',#{ZBY}),'%')</if>
-            <if test="CAR_RECORD_ID != null and CAR_RECORD_ID != '' "> and CAR_RECORD_ID = #{CAR_RECORD_ID}</if>
-            <if test="XCZ != null"> and XCZ = #{XCZ}</if>
          </where>
     </select>
     

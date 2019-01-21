@@ -28,5 +28,6 @@ public interface ICar_recordService {
 
     public int todayTotal(Map<String,Object> map);
 
-    public int approval(String guid);
+
+    public int examine(CAR_RECORD car_record);
 }

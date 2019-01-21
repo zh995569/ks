@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="DRIVER_KSSJ"    column="DRIVER_KSSJ"    />
         <result property="DRIVER_JSSJ"    column="DRIVER_JSSJ"    />
         <result property="DRIVER_SPZT"    column="DRIVER_SPZT"    />
+        <result property="APPROVAL_REASON" column="APPROVAL_REASON"/>
         <association property="car_register"    column="CAR_ID" javaType="CAR_REGISTER" resultMap="car_registerResult" />
         <association property="driver_register"    column="DRIVER_ID" javaType="DRIVER_REGISTER" resultMap="driver_registerResult" />
     </resultMap>
@@ -28,8 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectCar_register">
-        /*select GUID, CAR_ID, DRIVER_ID, DRIVER_WCSY, DRIVER_WCDD, DRIVER_KSSJ, DRIVER_JSSJ, DRIVER_SPZT from CAR_RECORD*/
-        SELECT c1.*,C2.CAR_CPHM,d.DRIVER_XM FROM CAR_RECORD c1 LEFT JOIN CAR_REGISTER c2 ON C1.CAR_ID=C2.GUID
+        SELECT c1.GUID,c1.CAR_ID,c1.DRIVER_ID,c1.DRIVER_WCSY,c1.DRIVER_WCDD,c1.DRIVER_KSSJ,c1.DRIVER_JSSJ,c1.DRIVER_SPZT,c1.APPROVAL_REASON,C2.CAR_CPHM,d.DRIVER_XM FROM CAR_RECORD c1 LEFT JOIN CAR_REGISTER c2 ON C1.CAR_ID=C2.GUID
 		LEFT JOIN DRIVER_REGISTER d ON c1.DRIVER_ID=d.GUID
     </sql>
 	
@@ -59,6 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="DRIVER_KSSJ != null">DRIVER_KSSJ,</if>
             <if test="DRIVER_JSSJ != null">DRIVER_JSSJ,</if>
             <if test="DRIVER_SPZT != null">DRIVER_SPZT,</if>
+            <if test="APPROVAL_REASON != null  and APPROVAL_REASON != ''  ">APPROVAL_REASON,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="GUID != null  and GUID != ''  ">#{GUID},</if>
@@ -69,6 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="DRIVER_KSSJ != null">#{DRIVER_KSSJ},</if>
             <if test="DRIVER_JSSJ != null">#{DRIVER_JSSJ},</if>
             <if test="DRIVER_SPZT != null">#{DRIVER_SPZT},</if>
+            <if test="APPROVAL_REASON != null  and APPROVAL_REASON != ''  ">#{APPROVAL_REASON},</if>
          </trim>
     </insert>
 	 
@@ -81,6 +83,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="DRIVER_WCDD != null  and DRIVER_WCDD != ''  ">DRIVER_WCDD = #{DRIVER_WCDD},</if>
             <if test="DRIVER_KSSJ != null">DRIVER_KSSJ = #{DRIVER_KSSJ},</if>
             <if test="DRIVER_JSSJ != null">DRIVER_JSSJ = #{DRIVER_JSSJ},</if>
+            <if test="DRIVER_SPZT != null">DRIVER_SPZT = #{DRIVER_SPZT},</if>
+            <if test="APPROVAL_REASON != null  and APPROVAL_REASON != ''  ">APPROVAL_REASON = #{APPROVAL_REASON},</if>
             <!--<if test="DRIVER_SPZT != null">DRIVER_SPZT = #{DRIVER_SPZT},</if>-->
         </trim>
         where GUID = #{GUID}
@@ -106,8 +110,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         (DRIVER_KSSJ &lt;= to_date(#{startTime},'yyyy-MM-dd HH24:mi:ss') AND DRIVER_JSSJ >= to_date(#{endTime},'yyyy-MM-dd HH24:mi:ss'))
     </select>
 
-    <update id="approval" parameterType="String">
-        update CAR_RECORD SET DRIVER_SPZT = 1
+    <!-- 审核，参数 guid，审核状态，审核理由 -->
+    <update id="examine">
+        update CAR_RECORD
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="DRIVER_SPZT != null">DRIVER_SPZT = #{DRIVER_SPZT},</if>
+            <if test="APPROVAL_REASON != null and APPROVAL_REASON != '' ">APPROVAL_REASON = #{APPROVAL_REASON},</if>
+        </trim>
         where GUID = #{GUID}
     </update>
     

@@ -132,21 +132,89 @@
                         if (value=="1"){
                             return "<span class='badge badge-primary'>" + "已审查" + "</span>";
                         }
+                        if (value=="2"){
+                            return "<span class='badge badge-danger'>" + "已拒绝" + "</span>";
+                        }
                     }
 				},
-		        {
+		        {	field : 'driver_SCZT',
 		            title: '操作',
 		            align: 'center',
 		            formatter: function(value, row, index) {
-		            	var actions = [];
-		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.guid + '\')"><i class="fa fa-edit"></i>查看</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.guid + '\')"><i class="fa fa-remove"></i>删除</a>');
-						return actions.join('');
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.guid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.guid + '\')"><i class="fa fa-remove"></i>删除</a> ');
+                        if (value=="0"){
+                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="approval(\'' + row.guid + '\')"><i class="fa fa-edit"></i>审　查</a> ');
+                        }
+                        if (value=="1"){
+                            actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已审查</a> ');
+                        }
+                        if(value == '2'){
+                            actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已拒绝</a> ');
+                        }
+                        return actions.join('');
 		            }
 		        }]
             };
             $.table.init(options);
         });
+
+
+        function approval(id) {
+
+            layer.open({
+                type:1,
+                content:'<input type="text" name="APPROVAL_REASON" id="APPROVAL_REASON"/>',
+                btn:['同意','拒绝','取消'],
+                shadeClose: true,//点击阴影关闭
+                yes:function(index,layero)
+                {//index为当前层索引//layero 为 弹出层对象//在回调函数末尾添加 “return false”可以禁止点击该按钮关闭弹出层//return false;
+                    $.ajax({
+                        type: "POST",//方法类型
+                        dataType:"json",
+                        url:prefix+"/examine",
+                        data:{"GUID":id+"","DRIVER_SCZT":1,"APPROVAL_REASON":$("#APPROVAL_REASON").val()},
+                        success:function (result) {
+                            //$.treeTable.refresh();
+                            //$.table.search();
+                            $.table.refresh();
+                        },
+                        error:function () {
+
+                        }
+                    });
+                    layer.close(index);
+                },
+                btn2:function(index,layero){//按钮二回到
+                    if($("#APPROVAL_REASON").val() == ''){
+                        layer.msg("请输入拒绝理由！", {time:1000, icon:5, shift:6});
+                        return false;
+                    }
+                    $.ajax({
+                        type: "POST",//方法类型
+                        dataType:"json",
+                        url:prefix+"/examine",
+                        data:{"GUID":id+"","DRIVER_SCZT":2,"APPROVAL_REASON":$("#APPROVAL_REASON").val()},
+                        success:function (result) {
+                            //$.treeTable.refresh();
+                            //$.table.search();
+                            $.table.refresh();
+                        },
+                        error:function () {
+
+                        }
+                    });
+                    layer.close(index);
+                },
+                btn3:function(index,layero){//按钮三回调
+                    layer.close(index);
+                },
+                cancel:function(index){//右上角关闭毁回调
+                    layer.close(index);
+                }
+            })
+        }
     </script>
 </body>
 </html>

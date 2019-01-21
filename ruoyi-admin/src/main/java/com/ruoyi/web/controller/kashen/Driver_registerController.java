@@ -4,8 +4,10 @@ import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.ExcelUtil;
+import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.framework.web.page.TableDataInfo;
+import com.ruoyi.kashen.domain.CAR_RECORD;
 import com.ruoyi.kashen.domain.DRIVER_REGISTER;
 import com.ruoyi.kashen.service.IDriver_registerService;
 import com.ruoyi.system.domain.SysRole;
@@ -160,4 +162,24 @@ public class Driver_registerController extends BaseController{
         map.put("total",total);
         return map;
     }
+
+
+    /**
+     * 确认审批
+     */
+    @RequiresPermissions("kashen:driver_register:edit")
+    @PostMapping("/examine")
+    @ResponseBody
+    public AjaxResult examine(DRIVER_REGISTER driver_register) {
+
+        if (driver_registerService.selectById(driver_register.getGUID())==null)
+        {
+            return error(1, "不存在");
+        }
+        ShiroUtils.clearCachedAuthorizationInfo();
+        return toAjax(driver_registerService.examine(driver_register));
+    }
+
+
+
 }
