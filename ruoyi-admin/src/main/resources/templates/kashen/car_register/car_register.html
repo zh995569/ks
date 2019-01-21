@@ -154,6 +154,9 @@
                         if (value=="1"){
                             return "<span class='badge badge-primary'>" + "已审查" + "</span>";
                         }
+                        if (value=="2"){
+                            return "<span class='badge badge-danger'>" + "已拒绝" + "</span>";
+                        }
 					}
 				},
 		        {
@@ -170,6 +173,9 @@
                         if (value=="1"){
                             actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已审批</a> ');
                         }
+                        if(value == '2'){
+                            actions.push('<a class="btn btn-primary disabled btn-xs ' + editFlag + '" ><i class="fa fa-edit"></i>已拒绝</a> ');
+						}
 						return actions.join('');
 		            }
 		        }]
@@ -196,17 +202,16 @@
             });*/
             layer.open({
                 type:1,
-                content:'<input type="text" name="res" id="res"/>',
+                content:'<input type="text" name="CAR_REASON" id="CAR_REASON"/>',
                 btn:['同意','拒绝','取消'],
 				shadeClose: true,//点击阴影关闭
                 yes:function(index,layero)
                 {//index为当前层索引//layero 为 弹出层对象//在回调函数末尾添加 “return false”可以禁止点击该按钮关闭弹出层//return false;
-                    alert("同意");
 					$.ajax({
                         type: "POST",//方法类型
 						dataType:"json",
-						url:prefix+"/approval",
-						data:{"guid":id+"","CAR_SFSC":1,"res":$("#res").val()},
+						url:prefix+"/examine",
+						data:{"GUID":id+"","CAR_SFSC":1,"REASON":$("#REASON").val()},
 						success:function (result) {
 							//$.treeTable.refresh();
                             //$.table.search();
@@ -219,14 +224,30 @@
                     layer.close(index);
                 },
                 btn2:function(index,layero){//按钮二回到
-                    alert("拒绝");
+                    if($("#CAR_REASON").val() == ''){
+                        alert("请输入拒绝理由！")
+                        return false;
+					}
+                    $.ajax({
+                        type: "POST",//方法类型
+                        dataType:"json",
+                        url:prefix+"/examine",
+                        data:{"GUID":id+"","CAR_SFSC":2,"CAR_REASON":$("#CAR_REASON").val()},
+                        success:function (result) {
+                            //$.treeTable.refresh();
+                            //$.table.search();
+                            $.table.refresh();
+                        },
+                        error:function () {
+
+                        }
+                    });
                     layer.close(index);
                 },
                 btn3:function(index,layero){//按钮三回调
-                    alert("取消");
                     layer.close(index);
                 },
-                cancel:function(){//右上角关闭毁回调
+                cancel:function(index){//右上角关闭毁回调
                     layer.close(index);
                 }
 			})

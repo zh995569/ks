@@ -60,7 +60,7 @@ public class CAR_REGISTER extends BaseEntity{
     @Excel(name = "是否审查", readConverterExp = "0=否,1=是")
     private Integer CAR_SFSC;
     @Excel(name = "审查理由", width = 50)
-    private String REASON;
+    private String CAR_REASON;
 
     public String getGUID() {
         return GUID;
@@ -222,12 +222,12 @@ public class CAR_REGISTER extends BaseEntity{
         this.CAR_SFSC = CAR_SFSC;
     }
 
-    public String getREASON() {
-        return REASON;
+    public String getCAR_REASON() {
+        return CAR_REASON;
     }
 
-    public void setREASON(String REASON) {
-        this.REASON = REASON;
+    public void setCAR_REASON(String CAR_REASON) {
+        this.CAR_REASON = CAR_REASON;
     }
 
     @Override
@@ -253,7 +253,7 @@ public class CAR_REGISTER extends BaseEntity{
                 ", CAR_SSPCS='" + CAR_SSPCS + '\'' +
                 ", CAR_SSQY='" + CAR_SSQY + '\'' +
                 ", CAR_SFSC=" + CAR_SFSC +
-                ", REASON='" + REASON + '\'' +
+                ", CAR_REASON='" + CAR_REASON + '\'' +
                 '}';
     }
 }
