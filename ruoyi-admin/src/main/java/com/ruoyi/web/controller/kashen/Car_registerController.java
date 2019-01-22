@@ -60,6 +60,7 @@ public class Car_registerController extends BaseController{
                 car_register.setCAR_SFSC(0);
             }
         }
+
         List<CAR_REGISTER> list = car_registerService.selectList(car_register);
         return getDataTable(list);
     }
