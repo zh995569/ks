@@ -34,6 +34,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         LEFT JOIN DRIVER_REGISTER d on c1.DRIVER_ID = d.GUID
     </sql>
 
+
+    <sql id="selectOneCheck_record">
+        select c1.GUID,c1.CAR_ID,c1.DRIVER_ID,c1.DKSJ,c1.ZBX,c1.ZBY,c1.XCZ,c1.CAR_RECORD_ID,c2.CAR_CPHM,d.DRIVER_XM,d.DRIVER_XCZ
+        from CHECK_RECORD c1 LEFT JOIN CAR_REGISTER c2 on c1.CAR_ID = c2.GUID
+        LEFT JOIN DRIVER_REGISTER d on c1.DRIVER_ID = d.GUID
+    </sql>
+
     <sql id="selectCheck_Unpunch">
         SELECT c.*,d.GUID,d.DRIVER_JSSJ,d.DRIVER_KSSJ FROM
         (SELECT a.GUID, a.CAR_ID, a.DRIVER_ID, a.DKSJ, a.CAR_RECORD_ID
@@ -58,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="selectById" parameterType="String" resultMap="check_recordResult">
-        <include refid="selectCheck_record"/>
+        <include refid="selectOneCheck_record"/>
         where c1.GUID = #{GUID}
     </select>
 
