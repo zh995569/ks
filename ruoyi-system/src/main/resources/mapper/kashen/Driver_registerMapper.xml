@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectDriver_register">
-        select GUID, DRIVER_SFZH, DRIVER_XM, DRIVER_XB, DRIVER_JG, DRIVER_ZZ, DRIVER_MZ, DRIVER_JSZBH, APP_PWD,DRIVER_XCZ,DRIVER_RLMB,DRIVER_SCZT,APPROVAL_REASON from DRIVER_REGISTER
+        select GUID, DRIVER_SFZH, DRIVER_XM, DRIVER_XB, DRIVER_JG, DRIVER_ZZ, DRIVER_MZ, DRIVER_JSZBH, APP_PWD,DRIVER_SCZT,APPROVAL_REASON from DRIVER_REGISTER
     </sql>
 	
     <select id="selectList" parameterType="DRIVER_REGISTER" resultMap="Driver_registerResult">
