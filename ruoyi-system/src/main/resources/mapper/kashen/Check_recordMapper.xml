@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectCheck_record">
-        select c1.GUID,c1.CAR_ID,c1.DRIVER_ID,c1.DKSJ,c1.ZBX,c1.ZBY,c1.XCZ ,c1.CAR_RECORD_ID,c2.CAR_CPHM,d.DRIVER_XM,d.DRIVER_XCZ
+        select c1.GUID,c1.CAR_ID,c1.DRIVER_ID,c1.DKSJ,c1.ZBX,c1.ZBY,c1.CAR_RECORD_ID,c2.CAR_CPHM,d.DRIVER_XM
         from CHECK_RECORD c1 LEFT JOIN CAR_REGISTER c2 on c1.CAR_ID = c2.GUID
         LEFT JOIN DRIVER_REGISTER d on c1.DRIVER_ID = d.GUID
     </sql>
